@@ -20,3 +20,10 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+#Project Files Inside folder
+.dailyCashDeposite/.vs/
+/DailyCashDeposite/.vs/DailyCashDeposite/v15/Server/sqlite3/storage.ide-wal
+/DailyCashDeposite/.vs/DailyCashDeposite/v15/Server/sqlite3/storage.ide-shm
+/DailyCashDeposite/.vs/DailyCashDeposite/v15/Server/sqlite3/storage.ide
+/DailyCashDeposite/.vs/DailyCashDeposite/v15/Server/sqlite3/db.lock
+/DailyCashDeposite/.vs/DailyCashDeposite/v15/.suo

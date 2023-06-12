@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\ConnectionClass.cs" />
+    <Compile Include="Helper\FilePath.cs" />
     <Compile Include="Helper\TableColumnName.cs" />
     <Compile Include="Helper\TableName.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

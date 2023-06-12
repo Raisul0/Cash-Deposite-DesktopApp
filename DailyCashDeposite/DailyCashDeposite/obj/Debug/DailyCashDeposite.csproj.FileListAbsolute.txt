@@ -20,3 +20,23 @@ D:\Freelance Work\Brad Boston\MAA\DailyCashDeposite\DailyCashDeposite\bin\Debug\
 D:\Freelance Work\Brad Boston\MAA\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Docking.pdb
 D:\Freelance Work\Brad Boston\MAA\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Navigator.pdb
 D:\Freelance Work\Brad Boston\MAA\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Workspace.pdb
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\DailyCashDeposite.exe.config
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\DailyCashDeposite.exe
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\DailyCashDeposite.pdb
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Navigator.dll
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Workspace.dll
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Docking.pdb
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Toolkit.pdb
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Navigator.pdb
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\bin\Debug\ComponentFactory.Krypton.Workspace.pdb
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.csprojAssemblyReference.cache
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.Screens.CompanySetting.resources
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.Screens.Home.resources
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.Screens.Import.resources
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.Properties.Resources.resources
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.Screens.Setup.resources
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.csproj.GenerateResource.cache
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.csproj.CoreCompileInputs.cache
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.csproj.CopyComplete
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.exe
+D:\Practice\Cash-Deposite-DesktopApp\DailyCashDeposite\DailyCashDeposite\obj\Debug\DailyCashDeposite.pdb

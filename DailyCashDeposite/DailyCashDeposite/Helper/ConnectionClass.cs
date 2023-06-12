@@ -18,7 +18,7 @@ namespace DailyCashDeposite.Helper
         static SqlConnection con;
         public static bool IsConnected = false;
 
-        public static void SetConnectionProperty(string userName="sa",string password = "12345678",string serverName = "LAPTOP-QBG3R6L8\\RAILAPTOP",string databaseName = "MAAImportDB")
+        public static void SetConnectionProperty(string userName="sa",string password = "RScythe_1190",string serverName = "SBD0006\\RaiPractice", string databaseName = "MAAImportDB")
         {
             ConnectionString = "Data Source='" + serverName + "';Initial Catalog='" + databaseName + "';User ID='" + userName + "';Password='" + password + "'";
         }
@@ -71,43 +71,87 @@ namespace DailyCashDeposite.Helper
 
         public static void ExecuteQueries(string Query_)
         {
-            SqlCommand cmd = new SqlCommand(Query_, con);
-            cmd.ExecuteNonQuery();
+            try
+            {
+                SqlCommand cmd = new SqlCommand(Query_, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception message)
+            {
+
+            }
         }
 
         public static SqlDataReader DataReader(string Query_)
         {
-            SqlCommand cmd = new SqlCommand(Query_, con);
-            SqlDataReader dr = cmd.ExecuteReader();
-            return dr;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(Query_, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                return dr;
+            }
+            catch (Exception message)
+            {
+                return null;
+            }
         }
 
         public static object ShowDataInGridView(string tableName)
         {
-            var selectString = "Select * from " + tableName;
-            SqlDataAdapter dr = new SqlDataAdapter(selectString, ConnectionString);
-            DataSet ds = new DataSet();
-            dr.Fill(ds);
-            object dataum = ds.Tables[0];
-            return dataum;
+            try
+            {
+                var selectString = "Select * from " + tableName;
+                SqlDataAdapter dr = new SqlDataAdapter(selectString, ConnectionString);
+                DataSet ds = new DataSet();
+                dr.Fill(ds);
+                object dataum = ds.Tables[0];
+                return dataum;
+            }
+            catch (Exception message)
+            {
+                return null;
+            }
+
         }
 
         public static int UpdateGrid(string tableName,DataTable table)
         {
-            var selectStatement = "Select * from " + tableName;
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = new SqlCommand(selectStatement, con);
-            SqlCommandBuilder cb = new SqlCommandBuilder(adapter);
-            adapter.Fill(table);
+            try
+            {
+                var selectStatement = "Select * from " + tableName;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = new SqlCommand(selectStatement, con);
+                SqlCommandBuilder cb = new SqlCommandBuilder(adapter);
+                adapter.Fill(table);
 
 
-            adapter.UpdateCommand = cb.GetUpdateCommand();
-            adapter.DeleteCommand = cb.GetDeleteCommand();
-            adapter.InsertCommand = cb.GetInsertCommand();
+                adapter.UpdateCommand = cb.GetUpdateCommand();
+                adapter.DeleteCommand = cb.GetDeleteCommand();
+                adapter.InsertCommand = cb.GetInsertCommand();
 
-            return adapter.Update(table);
+                return adapter.Update(table);
+            }
+            catch (Exception message)
+            {
+                return 0;
+            }
+
         }
 
-        
+        public static void InsertData(string columnNames,string cellValues,string tableName)
+        {
+            try
+            {
+                var insertStatement = "Insert into " + tableName + " (" + columnNames + ")" + " values (" + cellValues + ")";
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.InsertCommand = new SqlCommand(insertStatement, con);
+                adapter.InsertCommand.ExecuteNonQuery();
+            }
+            catch (Exception message)
+            {
+
+            }
+        }
+
     }
 }
