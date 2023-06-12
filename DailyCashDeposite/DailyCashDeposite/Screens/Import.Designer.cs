@@ -33,6 +33,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.importButton = new System.Windows.Forms.Button();
             this.navBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,7 +41,7 @@
             // 
             this.navBar.BackColor = System.Drawing.Color.PowderBlue;
             this.navBar.CanOverflow = false;
-            this.navBar.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.navBar.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.navBar.GripMargin = new System.Windows.Forms.Padding(6);
             this.navBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
@@ -50,7 +51,7 @@
             this.navBar.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.navBar.Name = "navBar";
             this.navBar.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.navBar.Size = new System.Drawing.Size(1094, 43);
+            this.navBar.Size = new System.Drawing.Size(1094, 37);
             this.navBar.TabIndex = 1;
             this.navBar.Text = "NavBar";
             // 
@@ -59,7 +60,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(69, 26);
+            this.toolStripButton1.Size = new System.Drawing.Size(63, 20);
             this.toolStripButton1.Text = "Import";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -68,7 +69,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(124, 20);
+            this.toolStripButton2.Size = new System.Drawing.Size(119, 20);
             this.toolStripButton2.Text = "Company Setting";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -77,20 +78,33 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(60, 20);
+            this.toolStripButton3.Size = new System.Drawing.Size(57, 20);
             this.toolStripButton3.Text = "Setup";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
+            // importButton
+            // 
+            this.importButton.BackColor = System.Drawing.Color.YellowGreen;
+            this.importButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.importButton.Location = new System.Drawing.Point(466, 294);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(100, 36);
+            this.importButton.TabIndex = 2;
+            this.importButton.Text = "Import";
+            this.importButton.UseVisualStyleBackColor = false;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
             // Import
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1094, 681);
+            this.Controls.Add(this.importButton);
             this.Controls.Add(this.navBar);
-            this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Import";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Import";
@@ -106,6 +120,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
-        
+        private System.Windows.Forms.Button importButton;
     }
 }

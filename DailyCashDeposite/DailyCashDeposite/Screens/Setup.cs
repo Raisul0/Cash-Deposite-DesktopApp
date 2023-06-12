@@ -23,13 +23,26 @@ namespace DailyCashDeposite.Screens
         {
             if(srcFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                srcPath.Text = srcFolderDialog.SelectedPath;
-                srcFolderButton.BackColor = Color.PaleGreen;
+                if(srcFolderDialog.SelectedPath != FilePath.ArchivePath)
+                {
+                    srcPath.Text = srcFolderDialog.SelectedPath;
+                    srcFolderButton.BackColor = Color.PaleGreen;
+                    FilePath.SourcePath = srcFolderDialog.SelectedPath;
+                }
+                else
+                {
+                    MessageBox.Show("Source Path can't Be Same as Archive Path");
+                    srcPath.Text = noPathText;
+                    srcFolderButton.BackColor = Color.SkyBlue;
+                    FilePath.SourcePath = "";
+                }
+
             }
             else
             {
                 srcPath.Text = noPathText;
                 srcFolderButton.BackColor = Color.SkyBlue;
+                FilePath.SourcePath = "";
             }
         }
 
@@ -37,13 +50,25 @@ namespace DailyCashDeposite.Screens
         {
             if (arcFolderDialog.ShowDialog() == DialogResult.OK)
             {
-                arcPath.Text = arcFolderDialog.SelectedPath;
-                arcFolderButton.BackColor = Color.PaleGreen;
+                if (arcFolderDialog.SelectedPath != FilePath.SourcePath)
+                {
+                    arcPath.Text = arcFolderDialog.SelectedPath;
+                    arcFolderButton.BackColor = Color.PaleGreen;
+                    FilePath.ArchivePath = arcFolderDialog.SelectedPath;
+                }
+                else
+                {
+                    MessageBox.Show("Archive Path can't Be Same as Source Path");
+                    arcPath.Text = noPathText;
+                    arcFolderButton.BackColor = Color.SkyBlue;
+                    FilePath.ArchivePath = "";
+                }
             }
             else
             {
                 arcPath.Text = noPathText;
                 arcFolderButton.BackColor = Color.SkyBlue;
+                FilePath.ArchivePath = "";
             }
         }
 

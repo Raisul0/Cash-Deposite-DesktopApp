@@ -20,4 +20,8 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
-/DailyCashDeposite/.vs/DailyCashDeposite/FileContentIndex
+
+#Project Files Inside folder
+/DailyCashDeposite/.vs/
+/DailyCashDeposite/DailyCashDeposite/obj/Debug/
+/DailyCashDeposite/DailyCashDeposite/bin/Debug/
