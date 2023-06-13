@@ -44,9 +44,7 @@ namespace DailyCashDeposite.Screens
             }
             else
             {
-                MessageBox.Show("First Setup Successfull Connection from the Setup Screen");
-                Setup setup = new Setup();
-                setup.ShowDialog();
+                MessageBoxHelper.SetupConnenctionMessage();
                 if (!ConnectionClass.IsConnected)
                 {
                     this.Close();

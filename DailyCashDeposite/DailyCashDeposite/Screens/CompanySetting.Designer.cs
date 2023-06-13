@@ -47,7 +47,7 @@
             this.deleteGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
             this.deleteGrid.Cursor = System.Windows.Forms.Cursors.Hand;
             this.deleteGrid.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteGrid.Location = new System.Drawing.Point(941, 567);
+            this.deleteGrid.Location = new System.Drawing.Point(941, 566);
             this.deleteGrid.Margin = new System.Windows.Forms.Padding(4);
             this.deleteGrid.Name = "deleteGrid";
             this.deleteGrid.Size = new System.Drawing.Size(141, 48);
@@ -62,7 +62,7 @@
             this.updateGridButton.BackColor = System.Drawing.Color.SkyBlue;
             this.updateGridButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.updateGridButton.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updateGridButton.Location = new System.Drawing.Point(792, 567);
+            this.updateGridButton.Location = new System.Drawing.Point(792, 566);
             this.updateGridButton.Margin = new System.Windows.Forms.Padding(4);
             this.updateGridButton.Name = "updateGridButton";
             this.updateGridButton.Size = new System.Drawing.Size(141, 48);
@@ -81,7 +81,7 @@
             this.companySettingGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Poppins SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -109,7 +109,7 @@
             this.companySettingGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.companySettingGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.companySettingGrid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.companySettingGrid.Size = new System.Drawing.Size(1068, 489);
+            this.companySettingGrid.Size = new System.Drawing.Size(1068, 488);
             this.companySettingGrid.TabIndex = 7;
             this.companySettingGrid.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.companySettingGrid_EditingControlShowing);
             this.companySettingGrid.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.companySettingGrid_RowLeave);
@@ -118,11 +118,11 @@
             // comspnySettingLabel
             // 
             this.comspnySettingLabel.AutoSize = true;
-            this.comspnySettingLabel.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comspnySettingLabel.Location = new System.Drawing.Point(4, 12);
+            this.comspnySettingLabel.Font = new System.Drawing.Font("Poppins", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comspnySettingLabel.Location = new System.Drawing.Point(4, 8);
             this.comspnySettingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.comspnySettingLabel.Name = "comspnySettingLabel";
-            this.comspnySettingLabel.Size = new System.Drawing.Size(159, 28);
+            this.comspnySettingLabel.Size = new System.Drawing.Size(211, 37);
             this.comspnySettingLabel.TabIndex = 8;
             this.comspnySettingLabel.Text = "Company Settings";
             // 
@@ -132,7 +132,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.PowderBlue;
             this.panel1.Controls.Add(this.comspnySettingLabel);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(13, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1070, 51);
             this.panel1.TabIndex = 11;
@@ -142,7 +142,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1094, 627);
+            this.ClientSize = new System.Drawing.Size(1094, 626);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.deleteGrid);
             this.Controls.Add(this.updateGridButton);
@@ -150,10 +150,11 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CompanySetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CompanySetting";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Text = "Company Setting";
             this.Load += new System.EventHandler(this.CompanySetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.companySettingGrid)).EndInit();
             this.panel1.ResumeLayout(false);

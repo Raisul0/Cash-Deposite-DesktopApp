@@ -10,17 +10,22 @@ namespace DailyCashDeposite.Helper
 {
     public static class ConnectionClass
     {
-        static string ServerName = "";
-        static string DatabaseName = "";
-        static string UserName = "";
-        static string Password = "";
-        static string ConnectionString = "";
-        static SqlConnection con;
+        public static string ServerName = "LAPTOP-QBG3R6L8\\RAILAPTOP";
+        public static string DatabaseName = "MAAImportDB";
+        public static string UserName = "sa";
+        public static string Password = "12345678";
+        public static string ConnectionString = "";
+        private static SqlConnection con;
         public static bool IsConnected = false;
 
-        public static void SetConnectionProperty(string userName="sa",string password = "12345678",string serverName = "LAPTOP-QBG3R6L8\\RAILAPTOP", string databaseName = "MAAImportDB")
+        public static void SetConnectionProperty(string userName="",string password = "",string serverName = "", string databaseName = "")
         {
-            ConnectionString = "Data Source='" + serverName + "';Initial Catalog='" + databaseName + "';User ID='" + userName + "';Password='" + password + "'";
+            ServerName = serverName == "" ? ServerName:serverName;
+            DatabaseName = databaseName == "" ? DatabaseName : databaseName;
+            UserName = userName == "" ? UserName : userName;
+            Password = password == "" ? Password : password;
+
+            ConnectionString = "Data Source='" + ServerName + "';Initial Catalog='" + DatabaseName + "';User ID='" + UserName + "';Password='" + Password + "'";
         }
 
         public static bool TestConnection()
@@ -82,7 +87,7 @@ namespace DailyCashDeposite.Helper
             }
         }
 
-        public static string ReadSingleColumnWithCondition(string tableName,string condition,string columnName)
+        public static string ReadSingleValueWithCondition(string tableName,string condition,string columnName)
         {
             try
             {
@@ -107,6 +112,35 @@ namespace DailyCashDeposite.Helper
             catch (Exception message)
             {
                 return "";
+            }
+        }
+
+        public static List<string> ReadAllValueWithCondition(string tableName, string condition, string columnName)
+        {
+            try
+            {
+                var selectQuery = "Select " + columnName + " from " + tableName + " where " + condition + "";
+                var list = new List<string>();
+                using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                list.Add(reader[columnName].ToString());
+                            }
+                            return list;
+                        }
+                    } // reader closed and disposed up here
+
+                } // command disposed here
+                return new List<string>();
+            }
+            catch (Exception message)
+            {
+                return new List<string>();
             }
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,27 +17,7 @@ namespace DailyCashDeposite.Screens
         public Setup()
         {
             InitializeComponent();
-            srcPath.Text = FilePath.SourcePath;
-            arcPath.Text = FilePath.ArchivePath;
-            if (ConnectionClass.IsConnected)
-            {
-                successLable.Show();
-                failedLable.Hide();
-            }
-            else
-            {
-                successLable.Hide();
-            }
-
-            if (FilePath.SourcePath != FilePath.NoPath)
-            {
-                srcFolderButton.BackColor = Color.PaleGreen;
-            }
-
-            if (FilePath.ArchivePath != FilePath.NoPath)
-            {
-                arcFolderButton.BackColor = Color.PaleGreen;
-            }
+            
         }
 
         private void srcFolderButton_Click(object sender, EventArgs e)
@@ -112,7 +93,40 @@ namespace DailyCashDeposite.Screens
             
         }
 
-        private void Setup_KeyPress(object sender, KeyPressEventArgs e)
+
+        private void Setup_Load(object sender, EventArgs e)
+        {
+            srcPath.Text = FilePath.SourcePath;
+            arcPath.Text = FilePath.ArchivePath;
+
+            serverTextBox.Text = ConnectionClass.ServerName;
+            dataBaseTextBox.Text = ConnectionClass.DatabaseName;
+            userNameTextBox.Text = ConnectionClass.UserName;
+            passwordTextbox.Text = ConnectionClass.Password;
+
+            if (ConnectionClass.IsConnected)
+            {
+                successLable.Show();
+                failedLable.Hide();
+            }
+            else
+            {
+                successLable.Hide();
+            }
+
+            if (FilePath.SourcePath != FilePath.NoPath)
+            {
+                srcFolderButton.BackColor = Color.PaleGreen;
+            }
+
+            if (FilePath.ArchivePath != FilePath.NoPath)
+            {
+                arcFolderButton.BackColor = Color.PaleGreen;
+            }
+            this.ActiveControl = passwordTextbox;
+        }
+
+        private void passwordTextbox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
             {

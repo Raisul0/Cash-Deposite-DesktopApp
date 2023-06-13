@@ -162,14 +162,14 @@ namespace DailyCashDeposite.Helper
             foreach (DataRow row in rows)
             {
                 var bun = row[DepositColumn.Bun].ToString();
-                var bunRes = ConnectionClass.ReadSingleColumnWithCondition(TableName.CompanySetting, CompanySettingColumn.CompanyNumber + " ='" + bun + "'", CompanySettingColumn.CompanyNumber);
+                var bunRes = ConnectionClass.ReadSingleValueWithCondition(TableName.CompanySetting, CompanySettingColumn.CompanyNumber + " ='" + bun + "'", CompanySettingColumn.CompanyNumber);
                 if (bun != bunRes)
                 {
                     isActive=false;
                 }
 
                 var glAccount = row[DepositColumn.OffSetGLAccount].ToString();
-                var glRes = ConnectionClass.ReadSingleColumnWithCondition(TableName.CompanySetting, CompanySettingColumn.OffsetGlAccount + " ='" + glAccount + "'", CompanySettingColumn.OffsetGlAccount);
+                var glRes = ConnectionClass.ReadSingleValueWithCondition(TableName.CompanySetting, CompanySettingColumn.OffsetGlAccount + " ='" + glAccount + "'", CompanySettingColumn.OffsetGlAccount);
                 if (glAccount == glRes)
                 {
                     glPresent = true;
