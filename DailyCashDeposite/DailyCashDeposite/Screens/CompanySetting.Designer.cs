@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CompanySetting));
             this.deleteGrid = new System.Windows.Forms.Button();
             this.updateGridButton = new System.Windows.Forms.Button();
@@ -44,7 +45,9 @@
             // 
             this.deleteGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
-            this.deleteGrid.Location = new System.Drawing.Point(941, 593);
+            this.deleteGrid.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.deleteGrid.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteGrid.Location = new System.Drawing.Point(941, 567);
             this.deleteGrid.Margin = new System.Windows.Forms.Padding(4);
             this.deleteGrid.Name = "deleteGrid";
             this.deleteGrid.Size = new System.Drawing.Size(141, 48);
@@ -57,7 +60,9 @@
             // 
             this.updateGridButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.updateGridButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.updateGridButton.Location = new System.Drawing.Point(792, 593);
+            this.updateGridButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.updateGridButton.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateGridButton.Location = new System.Drawing.Point(792, 567);
             this.updateGridButton.Margin = new System.Windows.Forms.Padding(4);
             this.updateGridButton.Name = "updateGridButton";
             this.updateGridButton.Size = new System.Drawing.Size(141, 48);
@@ -91,11 +96,20 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.companySettingGrid.DefaultCellStyle = dataGridViewCellStyle2;
-            this.companySettingGrid.Location = new System.Drawing.Point(12, 70);
+            this.companySettingGrid.Location = new System.Drawing.Point(13, 70);
             this.companySettingGrid.Margin = new System.Windows.Forms.Padding(4);
             this.companySettingGrid.Name = "companySettingGrid";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.companySettingGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.companySettingGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.companySettingGrid.Size = new System.Drawing.Size(1068, 515);
+            this.companySettingGrid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.companySettingGrid.Size = new System.Drawing.Size(1068, 489);
             this.companySettingGrid.TabIndex = 7;
             this.companySettingGrid.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.companySettingGrid_EditingControlShowing);
             this.companySettingGrid.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.companySettingGrid_RowLeave);
@@ -104,11 +118,11 @@
             // comspnySettingLabel
             // 
             this.comspnySettingLabel.AutoSize = true;
-            this.comspnySettingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comspnySettingLabel.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comspnySettingLabel.Location = new System.Drawing.Point(4, 12);
             this.comspnySettingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.comspnySettingLabel.Name = "comspnySettingLabel";
-            this.comspnySettingLabel.Size = new System.Drawing.Size(139, 20);
+            this.comspnySettingLabel.Size = new System.Drawing.Size(159, 28);
             this.comspnySettingLabel.TabIndex = 8;
             this.comspnySettingLabel.Text = "Company Settings";
             // 
@@ -128,7 +142,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1094, 652);
+            this.ClientSize = new System.Drawing.Size(1094, 627);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.deleteGrid);
             this.Controls.Add(this.updateGridButton);
@@ -139,6 +153,7 @@
             this.Name = "CompanySetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CompanySetting";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.CompanySetting_Load);
             ((System.ComponentModel.ISupportInitialize)(this.companySettingGrid)).EndInit();
             this.panel1.ResumeLayout(false);

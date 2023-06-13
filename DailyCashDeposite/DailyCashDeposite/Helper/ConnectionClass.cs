@@ -82,6 +82,34 @@ namespace DailyCashDeposite.Helper
             }
         }
 
+        public static string ReadSingleColumnWithCondition(string tableName,string condition,string columnName)
+        {
+            try
+            {
+                var selectQuery = "Select " + columnName + " from " + tableName + " where " + condition + "";
+                var res = "";
+                using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                res = reader[columnName].ToString();
+                            }
+                        }
+                    } // reader closed and disposed up here
+
+                } // command disposed here
+                return res;
+            }
+            catch (Exception message)
+            {
+                return "";
+            }
+        }
+
         public static SqlDataReader DataReader(string Query_)
         {
             try

@@ -42,16 +42,20 @@
             this.arcFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.successLable = new System.Windows.Forms.Label();
             this.failedLable = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.setupLabel = new System.Windows.Forms.Label();
+            this.mainPanal = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
+            this.mainPanal.SuspendLayout();
             this.SuspendLayout();
             // 
             // sqlLoginLable
             // 
-            this.sqlLoginLable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sqlLoginLable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sqlLoginLable.AutoSize = true;
+            this.sqlLoginLable.BackColor = System.Drawing.SystemColors.Window;
             this.sqlLoginLable.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sqlLoginLable.Location = new System.Drawing.Point(38, 47);
+            this.sqlLoginLable.Location = new System.Drawing.Point(106, 92);
             this.sqlLoginLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sqlLoginLable.Name = "sqlLoginLable";
             this.sqlLoginLable.Size = new System.Drawing.Size(57, 28);
@@ -61,9 +65,10 @@
             // 
             // sqlPasswordLable
             // 
+            this.sqlPasswordLable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sqlPasswordLable.AutoSize = true;
             this.sqlPasswordLable.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sqlPasswordLable.Location = new System.Drawing.Point(38, 84);
+            this.sqlPasswordLable.Location = new System.Drawing.Point(106, 129);
             this.sqlPasswordLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sqlPasswordLable.Name = "sqlPasswordLable";
             this.sqlPasswordLable.Size = new System.Drawing.Size(93, 28);
@@ -72,16 +77,18 @@
             // 
             // userNameTextBox
             // 
-            this.userNameTextBox.Location = new System.Drawing.Point(158, 47);
-            this.userNameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.userNameTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.userNameTextBox.Location = new System.Drawing.Point(226, 92);
+            this.userNameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(190, 24);
             this.userNameTextBox.TabIndex = 2;
             // 
             // passwordTextbox
             // 
-            this.passwordTextbox.Location = new System.Drawing.Point(158, 84);
-            this.passwordTextbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.passwordTextbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.passwordTextbox.Location = new System.Drawing.Point(226, 129);
+            this.passwordTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.passwordTextbox.Name = "passwordTextbox";
             this.passwordTextbox.PasswordChar = '*';
             this.passwordTextbox.Size = new System.Drawing.Size(190, 24);
@@ -89,12 +96,14 @@
             // 
             // sqlTestButton
             // 
+            this.sqlTestButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sqlTestButton.AutoSize = true;
             this.sqlTestButton.BackColor = System.Drawing.Color.SkyBlue;
+            this.sqlTestButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.sqlTestButton.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sqlTestButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.sqlTestButton.Location = new System.Drawing.Point(368, 59);
-            this.sqlTestButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sqlTestButton.Location = new System.Drawing.Point(436, 104);
+            this.sqlTestButton.Margin = new System.Windows.Forms.Padding(4);
             this.sqlTestButton.Name = "sqlTestButton";
             this.sqlTestButton.Size = new System.Drawing.Size(105, 38);
             this.sqlTestButton.TabIndex = 4;
@@ -104,9 +113,11 @@
             // 
             // srcFolderButton
             // 
+            this.srcFolderButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.srcFolderButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.srcFolderButton.Location = new System.Drawing.Point(78, 170);
-            this.srcFolderButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.srcFolderButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.srcFolderButton.Location = new System.Drawing.Point(98, 144);
+            this.srcFolderButton.Margin = new System.Windows.Forms.Padding(4);
             this.srcFolderButton.Name = "srcFolderButton";
             this.srcFolderButton.Size = new System.Drawing.Size(190, 34);
             this.srcFolderButton.TabIndex = 5;
@@ -116,9 +127,11 @@
             // 
             // arcFolderButton
             // 
+            this.arcFolderButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.arcFolderButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.arcFolderButton.Location = new System.Drawing.Point(78, 212);
-            this.arcFolderButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.arcFolderButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.arcFolderButton.Location = new System.Drawing.Point(98, 186);
+            this.arcFolderButton.Margin = new System.Windows.Forms.Padding(4);
             this.arcFolderButton.Name = "arcFolderButton";
             this.arcFolderButton.Size = new System.Drawing.Size(190, 34);
             this.arcFolderButton.TabIndex = 6;
@@ -128,31 +141,38 @@
             // 
             // srcPath
             // 
+            this.srcPath.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.srcPath.AutoEllipsis = true;
             this.srcPath.AutoSize = true;
-            this.srcPath.Location = new System.Drawing.Point(292, 177);
+            this.srcPath.Location = new System.Drawing.Point(312, 151);
             this.srcPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.srcPath.MaximumSize = new System.Drawing.Size(250, 19);
             this.srcPath.Name = "srcPath";
-            this.srcPath.Size = new System.Drawing.Size(102, 19);
+            this.srcPath.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.srcPath.Size = new System.Drawing.Size(0, 19);
             this.srcPath.TabIndex = 7;
-            this.srcPath.Text = "No Path Selected";
             // 
             // arcPath
             // 
+            this.arcPath.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.arcPath.AutoEllipsis = true;
             this.arcPath.AutoSize = true;
-            this.arcPath.Location = new System.Drawing.Point(292, 220);
+            this.arcPath.Location = new System.Drawing.Point(312, 194);
             this.arcPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.arcPath.MaximumSize = new System.Drawing.Size(250, 19);
             this.arcPath.Name = "arcPath";
-            this.arcPath.Size = new System.Drawing.Size(102, 19);
+            this.arcPath.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.arcPath.Size = new System.Drawing.Size(0, 19);
             this.arcPath.TabIndex = 8;
-            this.arcPath.Text = "No Path Selected";
             // 
             // successLable
             // 
+            this.successLable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.successLable.AutoSize = true;
             this.successLable.BackColor = System.Drawing.Color.PaleGreen;
             this.successLable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.successLable.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.successLable.Location = new System.Drawing.Point(198, 122);
+            this.successLable.Location = new System.Drawing.Point(266, 167);
             this.successLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.successLable.Name = "successLable";
             this.successLable.Size = new System.Drawing.Size(110, 30);
@@ -162,11 +182,12 @@
             // 
             // failedLable
             // 
+            this.failedLable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.failedLable.AutoSize = true;
             this.failedLable.BackColor = System.Drawing.Color.Red;
             this.failedLable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.failedLable.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.failedLable.Location = new System.Drawing.Point(220, 122);
+            this.failedLable.Location = new System.Drawing.Point(288, 167);
             this.failedLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.failedLable.Name = "failedLable";
             this.failedLable.Size = new System.Drawing.Size(65, 30);
@@ -174,29 +195,70 @@
             this.failedLable.Text = "Failed";
             this.failedLable.Visible = false;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel1.Controls.Add(this.setupLabel);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(616, 50);
+            this.panel1.TabIndex = 11;
+            // 
+            // setupLabel
+            // 
+            this.setupLabel.AutoSize = true;
+            this.setupLabel.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setupLabel.Location = new System.Drawing.Point(12, 12);
+            this.setupLabel.Name = "setupLabel";
+            this.setupLabel.Size = new System.Drawing.Size(58, 28);
+            this.setupLabel.TabIndex = 0;
+            this.setupLabel.Text = "Setup";
+            // 
+            // mainPanal
+            // 
+            this.mainPanal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainPanal.AutoSize = true;
+            this.mainPanal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainPanal.Controls.Add(this.srcPath);
+            this.mainPanal.Controls.Add(this.srcFolderButton);
+            this.mainPanal.Controls.Add(this.arcFolderButton);
+            this.mainPanal.Controls.Add(this.arcPath);
+            this.mainPanal.Location = new System.Drawing.Point(12, 69);
+            this.mainPanal.Name = "mainPanal";
+            this.mainPanal.Size = new System.Drawing.Size(616, 234);
+            this.mainPanal.TabIndex = 12;
+            // 
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(499, 276);
+            this.ClientSize = new System.Drawing.Size(641, 312);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.failedLable);
             this.Controls.Add(this.successLable);
-            this.Controls.Add(this.arcPath);
-            this.Controls.Add(this.srcPath);
-            this.Controls.Add(this.arcFolderButton);
-            this.Controls.Add(this.srcFolderButton);
             this.Controls.Add(this.sqlTestButton);
             this.Controls.Add(this.passwordTextbox);
             this.Controls.Add(this.userNameTextBox);
             this.Controls.Add(this.sqlPasswordLable);
             this.Controls.Add(this.sqlLoginLable);
+            this.Controls.Add(this.mainPanal);
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Setup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Setup";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Setup_KeyPress);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.mainPanal.ResumeLayout(false);
+            this.mainPanal.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,6 +279,9 @@
         private System.Windows.Forms.FolderBrowserDialog arcFolderDialog;
         private System.Windows.Forms.Label successLable;
         private System.Windows.Forms.Label failedLable;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label setupLabel;
+        private System.Windows.Forms.Panel mainPanal;
     }
 }
 

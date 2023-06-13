@@ -13,10 +13,30 @@ namespace DailyCashDeposite.Screens
 {
     public partial class Setup : Form
     {
-        public string noPathText = "No Path Selected";
         public Setup()
         {
             InitializeComponent();
+            srcPath.Text = FilePath.SourcePath;
+            arcPath.Text = FilePath.ArchivePath;
+            if (ConnectionClass.IsConnected)
+            {
+                successLable.Show();
+                failedLable.Hide();
+            }
+            else
+            {
+                successLable.Hide();
+            }
+
+            if (FilePath.SourcePath != FilePath.NoPath)
+            {
+                srcFolderButton.BackColor = Color.PaleGreen;
+            }
+
+            if (FilePath.ArchivePath != FilePath.NoPath)
+            {
+                arcFolderButton.BackColor = Color.PaleGreen;
+            }
         }
 
         private void srcFolderButton_Click(object sender, EventArgs e)
@@ -32,18 +52,19 @@ namespace DailyCashDeposite.Screens
                 else
                 {
                     MessageBox.Show("Source Path can't Be Same as Archive Path");
-                    srcPath.Text = noPathText;
+                    srcPath.Text = FilePath.NoPath;
                     srcFolderButton.BackColor = Color.SkyBlue;
-                    FilePath.SourcePath = "";
+                    FilePath.SourcePath = FilePath.NoPath;
                 }
 
             }
             else
             {
-                srcPath.Text = noPathText;
+                srcPath.Text = FilePath.NoPath;
                 srcFolderButton.BackColor = Color.SkyBlue;
-                FilePath.SourcePath = "";
+                FilePath.SourcePath = FilePath.NoPath;
             }
+            
         }
 
         private void arcFolderButton_Click(object sender, EventArgs e)
@@ -55,20 +76,21 @@ namespace DailyCashDeposite.Screens
                     arcPath.Text = arcFolderDialog.SelectedPath;
                     arcFolderButton.BackColor = Color.PaleGreen;
                     FilePath.ArchivePath = arcFolderDialog.SelectedPath;
+                    
                 }
                 else
                 {
                     MessageBox.Show("Archive Path can't Be Same as Source Path");
-                    arcPath.Text = noPathText;
+                    arcPath.Text = FilePath.NoPath;
                     arcFolderButton.BackColor = Color.SkyBlue;
-                    FilePath.ArchivePath = "";
+                    FilePath.ArchivePath = FilePath.NoPath;
                 }
             }
             else
             {
-                arcPath.Text = noPathText;
+                arcPath.Text = FilePath.NoPath;
                 arcFolderButton.BackColor = Color.SkyBlue;
-                FilePath.ArchivePath = "";
+                FilePath.ArchivePath = FilePath.NoPath;
             }
         }
 
@@ -88,6 +110,14 @@ namespace DailyCashDeposite.Screens
                 successLable.Hide();
             }
             
+        }
+
+        private void Setup_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                sqlTestButton.PerformClick();
+            }
         }
     }
 }

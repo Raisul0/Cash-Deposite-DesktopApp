@@ -47,7 +47,15 @@ namespace DailyCashDeposite.Screens
                 MessageBox.Show("First Setup Successfull Connection from the Setup Screen");
                 Setup setup = new Setup();
                 setup.ShowDialog();
-                this.Close();
+                if (!ConnectionClass.IsConnected)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    LoadGrid();
+                }
+                
             }
         }
 
@@ -147,7 +155,7 @@ namespace DailyCashDeposite.Screens
         {
             //if(e.KeyChar == (char)Keys.Enter)
             //{
-                
+
             //}
         }
 
