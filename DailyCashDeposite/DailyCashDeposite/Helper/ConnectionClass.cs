@@ -10,17 +10,22 @@ namespace DailyCashDeposite.Helper
 {
     public static class ConnectionClass
     {
-        static string ServerName = "";
-        static string DatabaseName = "";
-        static string UserName = "";
-        static string Password = "";
-        static string ConnectionString = "";
-        static SqlConnection con;
+        public static string ServerName = "LAPTOP-QBG3R6L8\\RAILAPTOP";
+        public static string DatabaseName = "MAAImportDB";
+        public static string UserName = "sa";
+        public static string Password = "12345678";
+        public static string ConnectionString = "";
+        private static SqlConnection con;
         public static bool IsConnected = false;
 
-        public static void SetConnectionProperty(string userName="sa",string password = "12345678",string serverName = "LAPTOP-QBG3R6L8\\RAILAPTOP",string databaseName = "MAAImportDB")
+        public static void SetConnectionProperty(string userName="",string password = "",string serverName = "", string databaseName = "")
         {
-            ConnectionString = "Data Source='" + serverName + "';Initial Catalog='" + databaseName + "';User ID='" + userName + "';Password='" + password + "'";
+            ServerName = serverName == "" ? ServerName:serverName;
+            DatabaseName = databaseName == "" ? DatabaseName : databaseName;
+            UserName = userName == "" ? UserName : userName;
+            Password = password == "" ? Password : password;
+
+            ConnectionString = "Data Source='" + ServerName + "';Initial Catalog='" + DatabaseName + "';User ID='" + UserName + "';Password='" + Password + "'";
         }
 
         public static bool TestConnection()
@@ -71,43 +76,144 @@ namespace DailyCashDeposite.Helper
 
         public static void ExecuteQueries(string Query_)
         {
-            SqlCommand cmd = new SqlCommand(Query_, con);
-            cmd.ExecuteNonQuery();
+            try
+            {
+                SqlCommand cmd = new SqlCommand(Query_, con);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception message)
+            {
+
+            }
+        }
+
+        public static string ReadSingleValueWithCondition(string tableName,string condition,string columnName)
+        {
+            try
+            {
+                var selectQuery = "Select " + columnName + " from " + tableName + " where " + condition + "";
+                var res = "";
+                using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                res = reader[columnName].ToString();
+                            }
+                        }
+                    } // reader closed and disposed up here
+
+                } // command disposed here
+                return res;
+            }
+            catch (Exception message)
+            {
+                return "";
+            }
+        }
+
+        public static List<string> ReadAllValueWithCondition(string tableName, string condition, string columnName)
+        {
+            try
+            {
+                var selectQuery = "Select " + columnName + " from " + tableName + " where " + condition + "";
+                var list = new List<string>();
+                using (SqlCommand cmd = new SqlCommand(selectQuery, con))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                list.Add(reader[columnName].ToString());
+                            }
+                            return list;
+                        }
+                    } // reader closed and disposed up here
+
+                } // command disposed here
+                return new List<string>();
+            }
+            catch (Exception message)
+            {
+                return new List<string>();
+            }
         }
 
         public static SqlDataReader DataReader(string Query_)
         {
-            SqlCommand cmd = new SqlCommand(Query_, con);
-            SqlDataReader dr = cmd.ExecuteReader();
-            return dr;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(Query_, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                return dr;
+            }
+            catch (Exception message)
+            {
+                return null;
+            }
         }
 
         public static object ShowDataInGridView(string tableName)
         {
-            var selectString = "Select * from " + tableName;
-            SqlDataAdapter dr = new SqlDataAdapter(selectString, ConnectionString);
-            DataSet ds = new DataSet();
-            dr.Fill(ds);
-            object dataum = ds.Tables[0];
-            return dataum;
+            try
+            {
+                var selectString = "Select * from " + tableName;
+                SqlDataAdapter dr = new SqlDataAdapter(selectString, ConnectionString);
+                DataSet ds = new DataSet();
+                dr.Fill(ds);
+                object dataum = ds.Tables[0];
+                return dataum;
+            }
+            catch (Exception message)
+            {
+                return null;
+            }
+
         }
 
         public static int UpdateGrid(string tableName,DataTable table)
         {
-            var selectStatement = "Select * from " + tableName;
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = new SqlCommand(selectStatement, con);
-            SqlCommandBuilder cb = new SqlCommandBuilder(adapter);
-            adapter.Fill(table);
+            try
+            {
+                var selectStatement = "Select * from " + tableName;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = new SqlCommand(selectStatement, con);
+                SqlCommandBuilder cb = new SqlCommandBuilder(adapter);
+                adapter.Fill(table);
 
 
-            adapter.UpdateCommand = cb.GetUpdateCommand();
-            adapter.DeleteCommand = cb.GetDeleteCommand();
-            adapter.InsertCommand = cb.GetInsertCommand();
+                adapter.UpdateCommand = cb.GetUpdateCommand();
+                adapter.DeleteCommand = cb.GetDeleteCommand();
+                adapter.InsertCommand = cb.GetInsertCommand();
 
-            return adapter.Update(table);
+                return adapter.Update(table);
+            }
+            catch (Exception message)
+            {
+                return 0;
+            }
+
         }
 
-        
+        public static void InsertData(string columnNames,string cellValues,string tableName)
+        {
+            try
+            {
+                var insertStatement = "Insert into " + tableName + " (" + columnNames + ")" + " values (" + cellValues + ")";
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.InsertCommand = new SqlCommand(insertStatement, con);
+                adapter.InsertCommand.ExecuteNonQuery();
+            }
+            catch (Exception message)
+            {
+
+            }
+        }
+
     }
 }

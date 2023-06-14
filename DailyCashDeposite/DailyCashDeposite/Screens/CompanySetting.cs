@@ -17,12 +17,25 @@ namespace DailyCashDeposite.Screens
         public CompanySetting()
         {
             InitializeComponent();
+            //ConnectionClass.SetConnectionProperty();
+            //ConnectionClass.TestConnection();
         }
 
         private void CompanySetting_Load(object sender, EventArgs e)
         {
-            ConnectionClass.SetConnectionProperty();
-            ConnectionClass.TestConnection();
+            LoadGrid();
+        }
+        private void updateGridButton_Click(object sender, EventArgs e)
+        {
+            UpdateRowGrid();
+        }
+        private void deleteGridButton_Click(object sender, EventArgs e)
+        {
+            DeleteRowGrid();
+        }
+
+        private void LoadGrid()
+        {
             if (ConnectionClass.IsConnected)
             {
                 ConnectionClass.OpenConection();
@@ -31,27 +44,71 @@ namespace DailyCashDeposite.Screens
             }
             else
             {
-                MessageBox.Show("First Setup Successfull Connection from the Setup Screen");
-                Setup setup = new Setup();
-                setup.ShowDialog();
-                this.Close();
+                MessageBoxHelper.SetupConnenctionMessage();
+                if (!ConnectionClass.IsConnected)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    LoadGrid();
+                }
+                
+            }
+        }
+
+        private void UpdateRowGrid()
+        {
+            var updated = ConnectionClass.UpdateGrid(TableName.CompanySetting, companySettingGrid.DataSource as DataTable);
+            if (updated > 0)
+            {
+                MessageBox.Show("Grid Updated Successfully");
+                LoadGrid();
+            }
+            else
+            {
+                MessageBox.Show("Something Went Wrong");
+                LoadGrid();
             }
 
         }
 
-        private void updateGridButton_Click(object sender, EventArgs e)
-        {
-            ConnectionClass.UpdateGrid(TableName.CompanySetting, companySettingGrid.DataSource as DataTable);
-            this.CompanySetting_Load(sender, e);
-        }
-
-        private void deleteGrid_Click(object sender, EventArgs e)
+        private void DeleteRowGrid()
         {
             foreach (DataGridViewRow item in this.companySettingGrid.SelectedRows)
             {
                 companySettingGrid.Rows.RemoveAt(item.Index);
             }
-            this.updateGridButton_Click(sender, e);
+            var deleted = ConnectionClass.UpdateGrid(TableName.CompanySetting, companySettingGrid.DataSource as DataTable);
+            if (deleted > 0)
+            {
+                MessageBox.Show("Deleted Successfully");
+                LoadGrid();
+            }
+            else
+            {
+                MessageBox.Show("Something Went Wrong");
+                LoadGrid();
+            }
+        }
+
+        private void InsertRowGrid(DataGridViewRow row)
+        {
+            var columNames = "";
+            for(var i = 0; i < companySettingGrid.ColumnCount; i++)
+            {
+                columNames += companySettingGrid.Columns[i].Name + ",";
+            }
+            columNames = columNames.TrimEnd(',');
+
+            var cellValues = "";
+            for (var i = 0; i < row.Cells.Count; i++)
+            {
+                cellValues += "'" + row.Cells[i].EditedFormattedValue.ToString() + "',";
+            }
+            cellValues = cellValues.TrimEnd(',');
+
+            ConnectionClass.InsertData(columNames,cellValues,TableName.CompanySetting);
         }
 
         public void ConfigureGrid()
@@ -74,7 +131,7 @@ namespace DailyCashDeposite.Screens
         private void companySettingGrid_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= new KeyPressEventHandler(companyNumberKeyPress);
-            if (companySettingGrid.CurrentCell.ColumnIndex == companySettingGrid.Columns[CompanySettingColumn.CompanyNumber].Index) //Desired Column
+            if (companySettingGrid.CurrentCell.ColumnIndex == companySettingGrid.Columns[CompanySettingColumn.CompanyNumber].Index) //Allow Number Inputs only On Company Number
             {
                 TextBox tb = e.Control as TextBox;
                 if (tb != null)
@@ -94,20 +151,10 @@ namespace DailyCashDeposite.Screens
 
         private void companySettingGrid_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Enter)
-            {
-                
-            }
-        }
+            //if(e.KeyChar == (char)Keys.Enter)
+            //{
 
-        private void companySettingGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            var cell = companySettingGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            if (companySettingGrid.IsCurrentCellInEditMode)
-            {
-                var validated = ValidateCell(cell);
-            }
-                
+            //}
         }
 
         private bool ValidateCell(DataGridViewCell cell)
@@ -137,22 +184,25 @@ namespace DailyCashDeposite.Screens
             return true;
         }
 
-        private void companySettingGrid_CellLeave(object sender, DataGridViewCellEventArgs e)
+        private void companySettingGrid_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex == companySettingGrid.ColumnCount-1)
-            {  
-                var row = companySettingGrid.Rows[e.RowIndex];
-                if (row != null)
-                {
-                    foreach(DataGridViewCell cell in row.Cells)
-                    {
-                        if (!ValidateCell(cell))
-                        {
-                            MessageBox.Show("Not a Valid Row");
-                        }
-                    }
-                }
-            }
+            //var row = companySettingGrid.CurrentRow;
+            //if (row != null)
+            //{
+            //    var isValid = true;
+            //    foreach (DataGridViewCell cell in row.Cells)
+            //    {
+            //        if (!ValidateCell(cell))
+            //        {
+            //            isValid = false;
+            //        }
+            //    }
+
+            //    if (isValid)
+            //    {
+            //        InsertRowGrid(row);
+            //    }
+            //}
         }
     }
 

@@ -20,11 +20,23 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
-/DailyCashDeposite/DailyCashDeposite/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
-/DailyCashDeposite/DailyCashDeposite/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
-/DailyCashDeposite/DailyCashDeposite/obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
-/DailyCashDeposite/DailyCashDeposite/obj/Debug/DailyCashDeposite.csprojAssemblyReference.cache
-/DailyCashDeposite/.vs/DailyCashDeposite/v15/Server/sqlite3/storage.ide-wal
-/DailyCashDeposite/.vs/DailyCashDeposite/v15/Server/sqlite3/storage.ide-shm
-/DailyCashDeposite/.vs/DailyCashDeposite/v15/Server/sqlite3/storage.ide
-/DailyCashDeposite/.vs/DailyCashDeposite/v15/Server/sqlite3/db.lock
+
+#Project Files Inside folder
+/DailyCashDeposite/.vs/
+/DailyCashDeposite/DailyCashDeposite/obj/Debug/
+/DailyCashDeposite/DailyCashDeposite/bin/Debug/
+/DailyCashDeposite/.vs/DailyCashDeposite/v17/.suo
+bin
+obj
+/DailyCashDeposite/DailyCashDeposite/bin/Debug/DailyCashDeposite.exe
+/DailyCashDeposite/DailyCashDeposite/bin/Debug/DailyCashDeposite.pdb
+/DailyCashDeposite/DailyCashDeposite/obj/Debug/DailyCashDeposite.csproj.AssemblyReference.cache
+/DailyCashDeposite/DailyCashDeposite/obj/Debug/DailyCashDeposite.csproj.CoreCompileInputs.cache
+/DailyCashDeposite/DailyCashDeposite/obj/Debug/DailyCashDeposite.csproj.FileListAbsolute.txt
+/DailyCashDeposite/DailyCashDeposite/obj/Debug/DailyCashDeposite.exe
+/DailyCashDeposite/.vs/DailyCashDeposite/FileContentIndex/0d519147-9863-4bc0-af43-220765a58b3a.vsidx
+/DailyCashDeposite/.vs/DailyCashDeposite/FileContentIndex/2d5986b3-4efd-4689-bd07-ff0e47aa8f81.vsidx
+/DailyCashDeposite/.vs/DailyCashDeposite/FileContentIndex/888e874e-6d20-4a80-89c6-35b6392638ad.vsidx
+/DailyCashDeposite/.vs/DailyCashDeposite/FileContentIndex/eab109e6-2eb2-4d43-b69e-23ae21b822e0.vsidx
+/SourcePath/BC Daily Deposits - SAMPLE1.csv
+/SourcePath/BC Daily Deposits - sample2.csv

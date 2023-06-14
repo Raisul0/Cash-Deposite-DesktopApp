@@ -9,6 +9,6 @@ namespace DailyCashDeposite.Helper
     public static class TableName
     {
         public static readonly string CompanySetting = "CompanySetting";
-        public static readonly string CashDeposite = "CashDeposite";
+        public static readonly string Deposit = "Deposit";
     }
 }

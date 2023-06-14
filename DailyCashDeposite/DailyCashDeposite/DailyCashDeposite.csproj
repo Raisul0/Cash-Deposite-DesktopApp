@@ -40,6 +40,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\ComponentFactory.Krypton.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -55,6 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\ConnectionClass.cs" />
+    <Compile Include="Helper\ControlUtilities.cs" />
+    <Compile Include="Helper\ExcelImport.cs" />
+    <Compile Include="Helper\FilePath.cs" />
+    <Compile Include="Helper\MessageBoxHelper.cs" />
     <Compile Include="Helper\TableColumnName.cs" />
     <Compile Include="Helper\TableName.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -74,11 +79,17 @@
     <Compile Include="Screens\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\Import.cs">
+    <Compile Include="Screens\Deposit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Screens\Import.Designer.cs">
-      <DependentUpon>Import.cs</DependentUpon>
+    <Compile Include="Screens\Deposit.Designer.cs">
+      <DependentUpon>Deposit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\InsertDeposit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Screens\InsertDeposit.Designer.cs">
+      <DependentUpon>InsertDeposit.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\Setup.cs">
       <SubType>Form</SubType>
@@ -94,13 +105,16 @@
     <EmbeddedResource Include="Screens\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Screens\Import.resx">
-      <DependentUpon>Import.cs</DependentUpon>
+    <EmbeddedResource Include="Screens\Deposit.resx">
+      <DependentUpon>Deposit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screens\InsertDeposit.resx">
+      <DependentUpon>InsertDeposit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Screens\Setup.resx">
       <DependentUpon>Setup.cs</DependentUpon>

@@ -42,16 +42,24 @@
             this.arcFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.successLable = new System.Windows.Forms.Label();
             this.failedLable = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.setupLabel = new System.Windows.Forms.Label();
+            this.mainPanal = new System.Windows.Forms.Panel();
+            this.dataBaseTextBox = new System.Windows.Forms.TextBox();
+            this.serverTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            this.mainPanal.SuspendLayout();
             this.SuspendLayout();
             // 
             // sqlLoginLable
             // 
-            this.sqlLoginLable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sqlLoginLable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sqlLoginLable.AutoSize = true;
+            this.sqlLoginLable.BackColor = System.Drawing.SystemColors.Window;
             this.sqlLoginLable.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sqlLoginLable.Location = new System.Drawing.Point(38, 47);
+            this.sqlLoginLable.Location = new System.Drawing.Point(400, 31);
             this.sqlLoginLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sqlLoginLable.Name = "sqlLoginLable";
             this.sqlLoginLable.Size = new System.Drawing.Size(57, 28);
@@ -61,9 +69,10 @@
             // 
             // sqlPasswordLable
             // 
+            this.sqlPasswordLable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sqlPasswordLable.AutoSize = true;
             this.sqlPasswordLable.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sqlPasswordLable.Location = new System.Drawing.Point(38, 84);
+            this.sqlPasswordLable.Location = new System.Drawing.Point(400, 68);
             this.sqlPasswordLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.sqlPasswordLable.Name = "sqlPasswordLable";
             this.sqlPasswordLable.Size = new System.Drawing.Size(93, 28);
@@ -72,87 +81,103 @@
             // 
             // userNameTextBox
             // 
-            this.userNameTextBox.Location = new System.Drawing.Point(158, 47);
-            this.userNameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.userNameTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.userNameTextBox.Location = new System.Drawing.Point(520, 31);
+            this.userNameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(190, 24);
-            this.userNameTextBox.TabIndex = 2;
+            this.userNameTextBox.TabIndex = 3;
             // 
             // passwordTextbox
             // 
-            this.passwordTextbox.Location = new System.Drawing.Point(158, 84);
-            this.passwordTextbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.passwordTextbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.passwordTextbox.Location = new System.Drawing.Point(520, 68);
+            this.passwordTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.passwordTextbox.Name = "passwordTextbox";
             this.passwordTextbox.PasswordChar = '*';
             this.passwordTextbox.Size = new System.Drawing.Size(190, 24);
-            this.passwordTextbox.TabIndex = 3;
+            this.passwordTextbox.TabIndex = 4;
+            this.passwordTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.passwordTextbox_KeyPress);
             // 
             // sqlTestButton
             // 
+            this.sqlTestButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.sqlTestButton.AutoSize = true;
             this.sqlTestButton.BackColor = System.Drawing.Color.SkyBlue;
+            this.sqlTestButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.sqlTestButton.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sqlTestButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.sqlTestButton.Location = new System.Drawing.Point(368, 59);
-            this.sqlTestButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sqlTestButton.Location = new System.Drawing.Point(339, 109);
+            this.sqlTestButton.Margin = new System.Windows.Forms.Padding(4);
             this.sqlTestButton.Name = "sqlTestButton";
-            this.sqlTestButton.Size = new System.Drawing.Size(105, 38);
-            this.sqlTestButton.TabIndex = 4;
+            this.sqlTestButton.Size = new System.Drawing.Size(110, 38);
+            this.sqlTestButton.TabIndex = 5;
             this.sqlTestButton.Text = "Test";
             this.sqlTestButton.UseVisualStyleBackColor = false;
             this.sqlTestButton.Click += new System.EventHandler(this.sqlTestButton_Click);
             // 
             // srcFolderButton
             // 
+            this.srcFolderButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.srcFolderButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.srcFolderButton.Location = new System.Drawing.Point(78, 170);
-            this.srcFolderButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.srcFolderButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.srcFolderButton.Location = new System.Drawing.Point(74, 205);
+            this.srcFolderButton.Margin = new System.Windows.Forms.Padding(4);
             this.srcFolderButton.Name = "srcFolderButton";
             this.srcFolderButton.Size = new System.Drawing.Size(190, 34);
-            this.srcFolderButton.TabIndex = 5;
+            this.srcFolderButton.TabIndex = 6;
             this.srcFolderButton.Text = "Source Path";
             this.srcFolderButton.UseVisualStyleBackColor = false;
             this.srcFolderButton.Click += new System.EventHandler(this.srcFolderButton_Click);
             // 
             // arcFolderButton
             // 
+            this.arcFolderButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.arcFolderButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.arcFolderButton.Location = new System.Drawing.Point(78, 212);
-            this.arcFolderButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.arcFolderButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.arcFolderButton.Location = new System.Drawing.Point(74, 247);
+            this.arcFolderButton.Margin = new System.Windows.Forms.Padding(4);
             this.arcFolderButton.Name = "arcFolderButton";
             this.arcFolderButton.Size = new System.Drawing.Size(190, 34);
-            this.arcFolderButton.TabIndex = 6;
+            this.arcFolderButton.TabIndex = 7;
             this.arcFolderButton.Text = "Archive Path";
             this.arcFolderButton.UseVisualStyleBackColor = false;
             this.arcFolderButton.Click += new System.EventHandler(this.arcFolderButton_Click);
             // 
             // srcPath
             // 
+            this.srcPath.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.srcPath.AutoEllipsis = true;
             this.srcPath.AutoSize = true;
-            this.srcPath.Location = new System.Drawing.Point(292, 177);
+            this.srcPath.Location = new System.Drawing.Point(288, 212);
             this.srcPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.srcPath.MaximumSize = new System.Drawing.Size(500, 19);
             this.srcPath.Name = "srcPath";
-            this.srcPath.Size = new System.Drawing.Size(102, 19);
+            this.srcPath.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.srcPath.Size = new System.Drawing.Size(0, 19);
             this.srcPath.TabIndex = 7;
-            this.srcPath.Text = "No Path Selected";
             // 
             // arcPath
             // 
+            this.arcPath.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.arcPath.AutoEllipsis = true;
             this.arcPath.AutoSize = true;
-            this.arcPath.Location = new System.Drawing.Point(292, 220);
+            this.arcPath.Location = new System.Drawing.Point(288, 255);
             this.arcPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.arcPath.MaximumSize = new System.Drawing.Size(500, 19);
             this.arcPath.Name = "arcPath";
-            this.arcPath.Size = new System.Drawing.Size(102, 19);
+            this.arcPath.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.arcPath.Size = new System.Drawing.Size(0, 19);
             this.arcPath.TabIndex = 8;
-            this.arcPath.Text = "No Path Selected";
             // 
             // successLable
             // 
+            this.successLable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.successLable.AutoSize = true;
             this.successLable.BackColor = System.Drawing.Color.PaleGreen;
             this.successLable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.successLable.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.successLable.Location = new System.Drawing.Point(198, 122);
+            this.successLable.Location = new System.Drawing.Point(339, 161);
             this.successLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.successLable.Name = "successLable";
             this.successLable.Size = new System.Drawing.Size(110, 30);
@@ -162,11 +187,12 @@
             // 
             // failedLable
             // 
+            this.failedLable.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.failedLable.AutoSize = true;
             this.failedLable.BackColor = System.Drawing.Color.Red;
             this.failedLable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.failedLable.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.failedLable.Location = new System.Drawing.Point(220, 122);
+            this.failedLable.Location = new System.Drawing.Point(361, 161);
             this.failedLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.failedLable.Name = "failedLable";
             this.failedLable.Size = new System.Drawing.Size(65, 30);
@@ -174,29 +200,119 @@
             this.failedLable.Text = "Failed";
             this.failedLable.Visible = false;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel1.Controls.Add(this.setupLabel);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(794, 50);
+            this.panel1.TabIndex = 11;
+            // 
+            // setupLabel
+            // 
+            this.setupLabel.AutoSize = true;
+            this.setupLabel.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setupLabel.Location = new System.Drawing.Point(12, 12);
+            this.setupLabel.Name = "setupLabel";
+            this.setupLabel.Size = new System.Drawing.Size(58, 28);
+            this.setupLabel.TabIndex = 0;
+            this.setupLabel.Text = "Setup";
+            // 
+            // mainPanal
+            // 
+            this.mainPanal.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.mainPanal.AutoSize = true;
+            this.mainPanal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainPanal.Controls.Add(this.dataBaseTextBox);
+            this.mainPanal.Controls.Add(this.sqlTestButton);
+            this.mainPanal.Controls.Add(this.srcPath);
+            this.mainPanal.Controls.Add(this.passwordTextbox);
+            this.mainPanal.Controls.Add(this.serverTextBox);
+            this.mainPanal.Controls.Add(this.userNameTextBox);
+            this.mainPanal.Controls.Add(this.sqlPasswordLable);
+            this.mainPanal.Controls.Add(this.label1);
+            this.mainPanal.Controls.Add(this.sqlLoginLable);
+            this.mainPanal.Controls.Add(this.failedLable);
+            this.mainPanal.Controls.Add(this.label2);
+            this.mainPanal.Controls.Add(this.successLable);
+            this.mainPanal.Controls.Add(this.srcFolderButton);
+            this.mainPanal.Controls.Add(this.arcFolderButton);
+            this.mainPanal.Controls.Add(this.arcPath);
+            this.mainPanal.Location = new System.Drawing.Point(12, 69);
+            this.mainPanal.Name = "mainPanal";
+            this.mainPanal.Size = new System.Drawing.Size(794, 347);
+            this.mainPanal.TabIndex = 12;
+            // 
+            // dataBaseTextBox
+            // 
+            this.dataBaseTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dataBaseTextBox.Location = new System.Drawing.Point(189, 68);
+            this.dataBaseTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.dataBaseTextBox.Name = "dataBaseTextBox";
+            this.dataBaseTextBox.Size = new System.Drawing.Size(190, 24);
+            this.dataBaseTextBox.TabIndex = 2;
+            // 
+            // serverTextBox
+            // 
+            this.serverTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.serverTextBox.Location = new System.Drawing.Point(189, 31);
+            this.serverTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.serverTextBox.Name = "serverTextBox";
+            this.serverTextBox.Size = new System.Drawing.Size(190, 24);
+            this.serverTextBox.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(69, 68);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(93, 28);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Database";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Window;
+            this.label2.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(69, 31);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 28);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Server";
+            this.label2.UseMnemonic = false;
+            // 
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(499, 276);
-            this.Controls.Add(this.failedLable);
-            this.Controls.Add(this.successLable);
-            this.Controls.Add(this.arcPath);
-            this.Controls.Add(this.srcPath);
-            this.Controls.Add(this.arcFolderButton);
-            this.Controls.Add(this.srcFolderButton);
-            this.Controls.Add(this.sqlTestButton);
-            this.Controls.Add(this.passwordTextbox);
-            this.Controls.Add(this.userNameTextBox);
-            this.Controls.Add(this.sqlPasswordLable);
-            this.Controls.Add(this.sqlLoginLable);
+            this.ClientSize = new System.Drawing.Size(819, 425);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.mainPanal);
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Setup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Setup";
+            this.TopMost = true;
+            this.Load += new System.EventHandler(this.Setup_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.mainPanal.ResumeLayout(false);
+            this.mainPanal.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -217,6 +333,13 @@
         private System.Windows.Forms.FolderBrowserDialog arcFolderDialog;
         private System.Windows.Forms.Label successLable;
         private System.Windows.Forms.Label failedLable;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label setupLabel;
+        private System.Windows.Forms.Panel mainPanal;
+        private System.Windows.Forms.TextBox dataBaseTextBox;
+        private System.Windows.Forms.TextBox serverTextBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
