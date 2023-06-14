@@ -137,7 +137,7 @@ namespace DailyCashDeposite.Helper
             //}
         }
 
-        public static void InsertDepositRows(DataRow[] rows)
+        public static int InsertDepositRows(DataRow[] rows)
         {
             var status = "Pass";
             var statusDescription = "";
@@ -185,10 +185,11 @@ namespace DailyCashDeposite.Helper
                 status = "Fail";
                 statusDescription += "Invalid Offset Account";
             }
-            statusDescription.TrimEnd(',');
+            statusDescription = statusDescription.TrimEnd(',');
 
             if (ConnectionClass.IsConnected)
             {
+                var ret = 0;
                 ConnectionClass.OpenConection();
                 for (var i = 0; i < rows.Length; i++)
                 {
@@ -214,9 +215,9 @@ namespace DailyCashDeposite.Helper
                     cellValues += "'" + DateTime.Now.TimeOfDay.ToString() + "',";
                     cellValues += "'" + System.Security.Principal.WindowsIdentity.GetCurrent().Name + "'";
 
-                    ConnectionClass.InsertData(ColumnNames.GetAllColumnsTogether(typeof(DepositColumn)), cellValues, TableName.Deposit);
+                    ret+=ConnectionClass.InsertData(ColumnNames.GetAllColumnsTogether(typeof(DepositColumn)), cellValues, TableName.Deposit);
                 }
-
+                return ret;
             }
             else
             {
@@ -225,7 +226,7 @@ namespace DailyCashDeposite.Helper
                 {
                     InsertDepositRows(rows);
                 }
-                
+                return 0;
             }
 
             

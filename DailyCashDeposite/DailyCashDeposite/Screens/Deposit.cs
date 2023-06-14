@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
@@ -83,7 +84,7 @@ namespace DailyCashDeposite.Screens
                 {
                     LoadGrid();
                 }
-
+                depositGrid.DataSource = null;
             }
         }
 
@@ -113,6 +114,21 @@ namespace DailyCashDeposite.Screens
             depositGrid.Columns[DepositColumn.TimeImported].HeaderText = "Time Imported";
             depositGrid.Columns[DepositColumn.WindowsUser].HeaderText = "Windows User";
 
+            //Set Sorting For Columns
+            depositGrid.Columns[DepositColumn.Journal].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.Entry].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.DepositDate].SortMode = DataGridViewColumnSortMode.Automatic; // Allow
+            depositGrid.Columns[DepositColumn.PeriodPostingDate].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.OffSetGLAccount].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.Description].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.Bun].SortMode = DataGridViewColumnSortMode.Automatic; // Allow
+            depositGrid.Columns[DepositColumn.TransactionTotal].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.Status].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.StatusDescription].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.DateImported].SortMode = DataGridViewColumnSortMode.Automatic; // Allow
+            depositGrid.Columns[DepositColumn.TimeImported].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.WindowsUser].SortMode = DataGridViewColumnSortMode.NotSortable;
+
             //Set Columns to Readonly
             depositGrid.Columns[DepositColumn.Journal].ReadOnly = true;
             depositGrid.Columns[DepositColumn.Entry].ReadOnly = true;
@@ -135,6 +151,7 @@ namespace DailyCashDeposite.Screens
                     column.DefaultCellStyle.BackColor = Color.LightGray;
                 }
             }
+
         }
 
         private void Deposit_Load(object sender, EventArgs e)
@@ -296,10 +313,18 @@ namespace DailyCashDeposite.Screens
             DataTable dataTable = (DataTable)depositGrid.DataSource;
             DataRow row1 = dataTable.NewRow();
             var EntryNo = 1;
-            if (dataTable.Rows.Count > 0)
+            if(entryTxtbox.Text.Length > 0)
             {
-                EntryNo = Convert.ToInt32(dataTable.Rows[dataTable.Rows.Count - 1][DepositColumn.Entry]) + 1;
+                EntryNo = Convert.ToInt32(entryTxtbox.Text);
             }
+            else
+            {
+                if (dataTable.Rows.Count > 0)
+                {
+                    EntryNo = Convert.ToInt32(dataTable.Rows[dataTable.Rows.Count - 1][DepositColumn.Entry]) + 1;
+                }
+            }
+            
              
 
             row1[DepositColumn.Journal] = journalTxtbox.Text;
@@ -324,14 +349,20 @@ namespace DailyCashDeposite.Screens
             row2[DepositColumn.Credit] = credittxtbox.Text == "" ? 0 : Convert.ToDecimal(credittxtbox.Text);
             row2[DepositColumn.Bun] = buntxtbox.Text == "" ? 0 : Convert.ToInt32(buntxtbox.Text);
 
-            ExcelImport.InsertDepositRows(new DataRow[]{ row1,row2 });
-            LoadGrid();
-            //row[DepositColumn.TransactionTotal] = transtotaltxtbox.Text == "" ? 0 : Convert.ToDecimal(transtotaltxtbox.Text);
 
+            if(ExcelImport.InsertDepositRows(new DataRow[]{ row1,row2 }) > 0)
+            {
+                MessageBox.Show("Records Inserted");
+                LoadGrid();
+                depositGrid.CurrentCell = depositGrid.Rows[depositGrid.Rows.Count - 1].Cells[DepositColumn.Journal];
+            }
+            else
+            {
+                MessageBox.Show("Something Went Wrong");
+                LoadGrid();
+            }
 
-            //dataTable.Rows.Add(row);
-            //dataTable.AcceptChanges();
-            //depositGrid.Rows[depositGrid.Rows.Count - 1].Selected = true;
+            
         }
 
         private void deleteGrid_Click(object sender, EventArgs e)
@@ -395,6 +426,9 @@ namespace DailyCashDeposite.Screens
                 {
                     var oldDescription = depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value.ToString();
                     var newDescription = oldDescription.Replace(errorText, "");
+                    newDescription = oldDescription.Replace(errorText.TrimEnd(','), "");
+
+                    newDescription = newDescription.TrimEnd(',');
 
                     depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value = newDescription;
                     depositGrid.Rows[e.RowIndex + 1].Cells[DepositColumn.StatusDescription].Value = newDescription;
@@ -420,6 +454,9 @@ namespace DailyCashDeposite.Screens
 
                     depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value = newDescription;
                     depositGrid.Rows[e.RowIndex + 1].Cells[DepositColumn.StatusDescription].Value = newDescription;
+
+                    depositGrid.Rows[e.RowIndex].Cells[DepositColumn.Status].Value = "Fail";
+                    depositGrid.Rows[e.RowIndex + 1].Cells[DepositColumn.Status].Value = "Fail";
                 }
             }
             else if ( e.ColumnIndex == depositGrid.Columns[DepositColumn.Credit].Index)
@@ -434,6 +471,9 @@ namespace DailyCashDeposite.Screens
                 {
                     var oldDescription = depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value.ToString();
                     var newDescription = oldDescription.Replace(errorText, "");
+                    newDescription = oldDescription.Replace(errorText.TrimEnd(','), "");
+
+                    newDescription = newDescription.TrimEnd(',');
 
                     depositGrid.Rows[e.RowIndex-1].Cells[DepositColumn.StatusDescription].Value = newDescription;
                     depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value = newDescription;
@@ -460,8 +500,34 @@ namespace DailyCashDeposite.Screens
 
                     depositGrid.Rows[e.RowIndex-1].Cells[DepositColumn.StatusDescription].Value = newDescription;
                     depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value = newDescription;
+
+                    depositGrid.Rows[e.RowIndex-1].Cells[DepositColumn.Status].Value = "Fail";
+                    depositGrid.Rows[e.RowIndex].Cells[DepositColumn.Status].Value = "Fail";
                 }
             }
+        }
+
+        private void entryTxtbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            journalTxtbox.Text = "99";
+            depositdatepicker.Value = DateTime.Now;
+            entryTxtbox.Clear();
+            periodpostingtxtbox.Clear();
+            descriptiontxtbox.Text = "Bank Deposit";
+            buntxtbox.Clear();
+            offsetCombobox.Text = string.Empty;
+            debittxtbox.Text = "0.00"; ;
+            credittxtbox.Text = "0.00";
+            transtotaltxtbox.Text = "0.00";
+
         }
     }
 }

@@ -56,6 +56,7 @@ namespace DailyCashDeposite.Helper
                 }
                 catch (Exception ex)
                 {
+                    IsConnected = false;
                     con.Close();
                     return false;
                 }
@@ -65,8 +66,16 @@ namespace DailyCashDeposite.Helper
 
         public static void OpenConection()
         {
-            con = new SqlConnection(ConnectionString);
-            con.Open();
+            try
+            {
+                con = new SqlConnection(ConnectionString);
+                con.Open();
+            }
+            catch
+            {
+
+            }
+
         }
 
         public static void CloseConnection()
@@ -200,7 +209,7 @@ namespace DailyCashDeposite.Helper
 
         }
 
-        public static void InsertData(string columnNames,string cellValues,string tableName)
+        public static int InsertData(string columnNames,string cellValues,string tableName)
         {
             try
             {
@@ -208,10 +217,11 @@ namespace DailyCashDeposite.Helper
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.InsertCommand = new SqlCommand(insertStatement, con);
                 adapter.InsertCommand.ExecuteNonQuery();
+                return 1;
             }
             catch (Exception message)
             {
-
+                return 0;
             }
         }
 

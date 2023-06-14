@@ -59,18 +59,48 @@ namespace DailyCashDeposite.Screens
 
         private void UpdateRowGrid()
         {
-            var updated = ConnectionClass.UpdateGrid(TableName.CompanySetting, companySettingGrid.DataSource as DataTable);
-            if (updated > 0)
+            var stopUpdate = false;
+            var errorIndex = 0;
+            foreach (DataGridViewRow row in companySettingGrid.Rows)
             {
-                MessageBox.Show("Grid Updated Successfully");
-                LoadGrid();
+                var cellValue = row.Cells[CompanySettingColumn.CompanyNumber].EditedFormattedValue.ToString();
+                if (!row.IsNewRow)
+                {
+                    if (string.IsNullOrEmpty(cellValue))
+                    {
+                        stopUpdate = true;
+                        errorIndex = row.Index;
+                        break;
+                    }
+                    else if (Convert.ToInt32(cellValue) <= 0)
+                    {
+                        stopUpdate = true;
+                        errorIndex = row.Index;
+                        break;
+                    }
+                }
+            }
+            if (stopUpdate)
+            {
+                companySettingGrid.Rows[errorIndex].Cells[CompanySettingColumn.CompanyNumber].ErrorText = "Company Number Is Required & Can't be below 0";
+                companySettingGrid.CurrentCell = companySettingGrid.Rows[errorIndex].Cells[CompanySettingColumn.CompanyNumber];
+                
             }
             else
             {
-                MessageBox.Show("Something Went Wrong");
-                LoadGrid();
+                var updated = ConnectionClass.UpdateGrid(TableName.CompanySetting, companySettingGrid.DataSource as DataTable);
+                if (updated > 0)
+                {
+                    MessageBox.Show("Grid Updated Successfully");
+                    LoadGrid();
+                }
+                else
+                {
+                    MessageBox.Show("Something Went Wrong");
+                    LoadGrid();
+                }
             }
-
+           
         }
 
         private void DeleteRowGrid()
@@ -92,27 +122,11 @@ namespace DailyCashDeposite.Screens
             }
         }
 
-        private void InsertRowGrid(DataGridViewRow row)
-        {
-            var columNames = "";
-            for(var i = 0; i < companySettingGrid.ColumnCount; i++)
-            {
-                columNames += companySettingGrid.Columns[i].Name + ",";
-            }
-            columNames = columNames.TrimEnd(',');
-
-            var cellValues = "";
-            for (var i = 0; i < row.Cells.Count; i++)
-            {
-                cellValues += "'" + row.Cells[i].EditedFormattedValue.ToString() + "',";
-            }
-            cellValues = cellValues.TrimEnd(',');
-
-            ConnectionClass.InsertData(columNames,cellValues,TableName.CompanySetting);
-        }
-
         public void ConfigureGrid()
         {
+            //Hide Columns
+            companySettingGrid.Columns["Id"].Visible = false;
+
             //Set Column Width
             companySettingGrid.Columns[CompanySettingColumn.CompanyNumber].Width = 150;
             companySettingGrid.Columns[CompanySettingColumn.OffsetGlAccount].Width = 500;
@@ -151,59 +165,13 @@ namespace DailyCashDeposite.Screens
 
         private void companySettingGrid_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //if(e.KeyChar == (char)Keys.Enter)
+            //if (e.KeyChar == (char)Keys.Enter)
             //{
 
             //}
         }
 
-        private bool ValidateCell(DataGridViewCell cell)
-        {
-            var cellValue = cell.EditedFormattedValue.ToString();
 
-            if(cell.ColumnIndex == companySettingGrid.Columns[CompanySettingColumn.CompanyNumber].Index)
-            {
-                if (cellValue == "" || cellValue.Length==0)
-                {
-                    MessageBox.Show("Company Number Is Required");
-                    return false;
-                }
-            }
-            else if (cell.ColumnIndex == companySettingGrid.Columns[CompanySettingColumn.OffsetGlAccount].Index)
-            {
-
-            }
-            else if (cell.ColumnIndex == companySettingGrid.Columns[CompanySettingColumn.ContactName].Index)
-            {
-
-            }
-            else if (cell.ColumnIndex == companySettingGrid.Columns[CompanySettingColumn.ContactEmail].Index)
-            {
-
-            }
-            return true;
-        }
-
-        private void companySettingGrid_RowLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            //var row = companySettingGrid.CurrentRow;
-            //if (row != null)
-            //{
-            //    var isValid = true;
-            //    foreach (DataGridViewCell cell in row.Cells)
-            //    {
-            //        if (!ValidateCell(cell))
-            //        {
-            //            isValid = false;
-            //        }
-            //    }
-
-            //    if (isValid)
-            //    {
-            //        InsertRowGrid(row);
-            //    }
-            //}
-        }
     }
 
     

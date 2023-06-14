@@ -214,10 +214,10 @@
             // setupLabel
             // 
             this.setupLabel.AutoSize = true;
-            this.setupLabel.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setupLabel.Location = new System.Drawing.Point(12, 12);
+            this.setupLabel.Font = new System.Drawing.Font("Poppins", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setupLabel.Location = new System.Drawing.Point(3, 10);
             this.setupLabel.Name = "setupLabel";
-            this.setupLabel.Size = new System.Drawing.Size(58, 28);
+            this.setupLabel.Size = new System.Drawing.Size(77, 37);
             this.setupLabel.TabIndex = 0;
             this.setupLabel.Text = "Setup";
             // 

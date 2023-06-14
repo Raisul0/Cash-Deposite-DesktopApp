@@ -112,8 +112,6 @@
             this.companySettingGrid.Size = new System.Drawing.Size(1068, 488);
             this.companySettingGrid.TabIndex = 7;
             this.companySettingGrid.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.companySettingGrid_EditingControlShowing);
-            this.companySettingGrid.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.companySettingGrid_RowLeave);
-            this.companySettingGrid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.companySettingGrid_KeyPress);
             // 
             // comspnySettingLabel
             // 
