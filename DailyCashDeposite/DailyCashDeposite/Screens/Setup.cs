@@ -77,9 +77,11 @@ namespace DailyCashDeposite.Screens
 
         private void sqlTestButton_Click(object sender, EventArgs e)
         {
+            var serverName = serverTextBox.Text?.Trim() ?? "";
+            var database = dataBaseTextBox.Text?.Trim() ?? "";
             var userName = userNameTextBox.Text?.Trim() ?? "";
             var password = passwordTextbox.Text?.Trim() ?? "";
-            ConnectionClass.SetConnectionProperty(userName, password);
+            ConnectionClass.SetConnectionProperty(userName, password, serverName, database);
             if (ConnectionClass.TestConnection())
             {
                 successLable.Show();

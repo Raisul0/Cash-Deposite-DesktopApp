@@ -97,7 +97,10 @@ namespace DailyCashDeposite.Screens
             depositGrid.Columns[DepositColumn.Entry].Width = 40;
             depositGrid.Columns[DepositColumn.Bun].Width = 50;
             depositGrid.Columns[DepositColumn.Status].Width = 60;
+            depositGrid.Columns[DepositColumn.Debit].Width = 100;
+            depositGrid.Columns[DepositColumn.Credit].Width = 100;
             depositGrid.Columns[DepositColumn.OffSetGLAccount].Width = 150;
+            depositGrid.Columns[DepositColumn.PeriodPostingDate].Width = 150;
             depositGrid.Columns[DepositColumn.StatusDescription].Width = 250;
 
             //Set Column Header Name
@@ -146,6 +149,10 @@ namespace DailyCashDeposite.Screens
             {
                 GridRowFilter(string.Format(DepositColumn.Bun + " = '{0}'", search));
             }
+            else
+            {
+                GridRowFilter("");
+            }
             
         }
 
@@ -166,6 +173,10 @@ namespace DailyCashDeposite.Screens
             {
                 GridRowFilter(string.Format(DepositColumn.DepositDate + " = '{0}'", search));
             }
+            else
+            {
+                GridRowFilter("");
+            }
         }
 
         private void importedDatePicker_CloseUp(object sender, EventArgs e)
@@ -174,6 +185,10 @@ namespace DailyCashDeposite.Screens
             if (!string.IsNullOrEmpty(search))
             {
                 GridRowFilter(string.Format(DepositColumn.DateImported + " = '{0}'", search));
+            }
+            else
+            {
+                GridRowFilter("");
             }
         }
 
@@ -227,18 +242,20 @@ namespace DailyCashDeposite.Screens
 
         private void debittxtbox_Leave(object sender, EventArgs e)
         {
-            var debitValue = debittxtbox.Text == "" ? 0 : Convert.ToDecimal(debittxtbox.Text);
-            var creditValue = credittxtbox.Text == "" ? 0 : Convert.ToDecimal(credittxtbox.Text);
-
-            transtotaltxtbox.Text = (debitValue - creditValue).ToString();
+            transtotaltxtbox.Text = calculateTransactionTotal().ToString();
         }
 
         private void credittxtbox_Leave(object sender, EventArgs e)
         {
+            transtotaltxtbox.Text = calculateTransactionTotal().ToString();
+        }
+
+        private decimal calculateTransactionTotal()
+        {
             var debitValue = debittxtbox.Text == "" ? 0 : Convert.ToDecimal(debittxtbox.Text);
             var creditValue = credittxtbox.Text == "" ? 0 : Convert.ToDecimal(credittxtbox.Text);
 
-            transtotaltxtbox.Text = (debitValue - creditValue).ToString();
+            return (debitValue - creditValue);
         }
 
         private void buntxtbox_KeyPress(object sender, KeyPressEventArgs e)
@@ -273,31 +290,178 @@ namespace DailyCashDeposite.Screens
             
         }
 
-        private void transtotaltxtbox_TextChanged(object sender, EventArgs e)
+        public void AddNewRow()
         {
-            var totalValue = transtotaltxtbox.Text == "" ? 0 : Convert.ToDecimal(transtotaltxtbox.Text);
-            if(totalValue != 0)
+            
+            DataTable dataTable = (DataTable)depositGrid.DataSource;
+            DataRow row1 = dataTable.NewRow();
+            var EntryNo = 1;
+            if (dataTable.Rows.Count > 0)
             {
-                
+                EntryNo = Convert.ToInt32(dataTable.Rows[dataTable.Rows.Count - 1][DepositColumn.Entry]) + 1;
+            }
+             
+
+            row1[DepositColumn.Journal] = journalTxtbox.Text;
+            row1[DepositColumn.Entry] = EntryNo;
+            row1[DepositColumn.DepositDate] = depositdatepicker.Text;
+            row1[DepositColumn.PeriodPostingDate] = periodpostingtxtbox.Text;
+            row1[DepositColumn.OffSetGLAccount] = offsetCombobox.Text;
+            row1[DepositColumn.Description] = descriptiontxtbox.Text;
+            row1[DepositColumn.Debit] = debittxtbox.Text == "" ? 0 : Convert.ToDecimal(debittxtbox.Text);
+            row1[DepositColumn.Credit] = 0;
+            row1[DepositColumn.Bun] = buntxtbox.Text == "" ? 0 : Convert.ToInt32(buntxtbox.Text);
+
+            DataRow row2 = dataTable.NewRow();
+
+            row2[DepositColumn.Journal] = journalTxtbox.Text;
+            row2[DepositColumn.Entry] = EntryNo;
+            row2[DepositColumn.DepositDate] = depositdatepicker.Text;
+            row2[DepositColumn.PeriodPostingDate] = periodpostingtxtbox.Text;
+            row2[DepositColumn.OffSetGLAccount] = offsetCombobox.Text;
+            row2[DepositColumn.Description] = descriptiontxtbox.Text;
+            row2[DepositColumn.Debit] = 0;
+            row2[DepositColumn.Credit] = credittxtbox.Text == "" ? 0 : Convert.ToDecimal(credittxtbox.Text);
+            row2[DepositColumn.Bun] = buntxtbox.Text == "" ? 0 : Convert.ToInt32(buntxtbox.Text);
+
+            ExcelImport.InsertDepositRows(new DataRow[]{ row1,row2 });
+            LoadGrid();
+            //row[DepositColumn.TransactionTotal] = transtotaltxtbox.Text == "" ? 0 : Convert.ToDecimal(transtotaltxtbox.Text);
+
+
+            //dataTable.Rows.Add(row);
+            //dataTable.AcceptChanges();
+            //depositGrid.Rows[depositGrid.Rows.Count - 1].Selected = true;
+        }
+
+        private void deleteGrid_Click(object sender, EventArgs e)
+        {
+            DeleteRowGrid();
+        }
+
+        private void DeleteRowGrid()
+        {
+            foreach (DataGridViewRow item in this.depositGrid.SelectedRows)
+            {
+                depositGrid.Rows.RemoveAt(item.Index);
+            }
+            var deleted = ConnectionClass.UpdateGrid(TableName.Deposit, depositGrid.DataSource as DataTable);
+            if (deleted > 0)
+            {
+                MessageBox.Show("Deleted Successfully");
+                LoadGrid();
+            }
+            else
+            {
+                MessageBox.Show("Something Went Wrong");
+                LoadGrid();
             }
         }
 
-        public void AddNewRow()
+        private void updateGridButton_Click(object sender, EventArgs e)
         {
-            DataTable dataTable = (DataTable)depositGrid.DataSource;
-            DataRow row = dataTable.NewRow();
-            row[DepositColumn.Journal] = journalTxtbox.Text;
-            row[DepositColumn.DepositDate] = depositdatepicker.Text;
-            row[DepositColumn.PeriodPostingDate] = periodpostingtxtbox.Text;
-            row[DepositColumn.OffSetGLAccount] = offsetCombobox.SelectedValue;
-            row[DepositColumn.Description] = descriptiontxtbox.Text;
-            row[DepositColumn.Debit] = debittxtbox.Text == "" ? 0 : Convert.ToDecimal(debittxtbox.Text);
-            row[DepositColumn.Credit] = credittxtbox.Text == "" ? 0 : Convert.ToDecimal(credittxtbox.Text);
-            row[DepositColumn.Bun] = buntxtbox.Text == "" ? 0 : Convert.ToInt32(buntxtbox.Text);
-            row[DepositColumn.TransactionTotal] = transtotaltxtbox.Text == "" ? 0 : Convert.ToDecimal(transtotaltxtbox.Text);
-            dataTable.Rows.Add(row);
-            dataTable.AcceptChanges();
-            depositGrid.Rows[depositGrid.Rows.Count - 1].Selected = true;
+            UpdateRowGrid();
+        }
+
+        private void UpdateRowGrid()
+        {
+            var updated = ConnectionClass.UpdateGrid(TableName.Deposit, depositGrid.DataSource as DataTable);
+            if (updated > 0)
+            {
+                MessageBox.Show("Grid Updated Successfully");
+                LoadGrid();
+            }
+            else
+            {
+                MessageBox.Show("Something Went Wrong");
+                LoadGrid();
+            }
+
+        }
+
+        private void depositGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var errorText = "Error in Transaction Total,";
+            if (e.ColumnIndex == depositGrid.Columns[DepositColumn.Debit].Index)
+            {
+                var debit = Convert.ToDecimal( depositGrid.Rows[e.RowIndex].Cells[DepositColumn.Debit].Value);
+                var credit = Convert.ToDecimal(depositGrid.Rows[e.RowIndex+1].Cells[DepositColumn.Credit].Value);
+
+                depositGrid.Rows[e.RowIndex].Cells[DepositColumn.TransactionTotal].Value = debit - credit;
+                depositGrid.Rows[e.RowIndex+1].Cells[DepositColumn.TransactionTotal].Value = debit - credit;
+
+
+                if(debit-credit == 0)
+                {
+                    var oldDescription = depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value.ToString();
+                    var newDescription = oldDescription.Replace(errorText, "");
+
+                    depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value = newDescription;
+                    depositGrid.Rows[e.RowIndex + 1].Cells[DepositColumn.StatusDescription].Value = newDescription;
+
+                    if (string.IsNullOrEmpty(newDescription))
+                    {
+                        depositGrid.Rows[e.RowIndex].Cells[DepositColumn.Status].Value = "Pass";
+                        depositGrid.Rows[e.RowIndex + 1].Cells[DepositColumn.Status].Value = "Pass";
+                    }
+                }
+                else if(!depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value.ToString().Contains(errorText.TrimEnd(',')))
+                {
+                    var oldDescription = depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value.ToString();
+                    if (oldDescription.Contains("Inactive Company,"))
+                    {
+                        oldDescription = oldDescription.Replace("Inactive Company,", "Inactive Company," + errorText);
+                    }
+                    else
+                    {
+                        oldDescription = errorText + oldDescription;
+                    }
+                    var newDescription = oldDescription.TrimEnd(',');
+
+                    depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value = newDescription;
+                    depositGrid.Rows[e.RowIndex + 1].Cells[DepositColumn.StatusDescription].Value = newDescription;
+                }
+            }
+            else if ( e.ColumnIndex == depositGrid.Columns[DepositColumn.Credit].Index)
+            {
+                var debit = Convert.ToDecimal(depositGrid.Rows[e.RowIndex-1].Cells[DepositColumn.Debit].Value);
+                var credit = Convert.ToDecimal(depositGrid.Rows[e.RowIndex].Cells[DepositColumn.Credit].Value);
+
+                depositGrid.Rows[e.RowIndex-1].Cells[DepositColumn.TransactionTotal].Value = debit - credit;
+                depositGrid.Rows[e.RowIndex].Cells[DepositColumn.TransactionTotal].Value = debit - credit;
+
+                if (debit - credit == 0)
+                {
+                    var oldDescription = depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value.ToString();
+                    var newDescription = oldDescription.Replace(errorText, "");
+
+                    depositGrid.Rows[e.RowIndex-1].Cells[DepositColumn.StatusDescription].Value = newDescription;
+                    depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value = newDescription;
+
+                    if (string.IsNullOrEmpty(newDescription))
+                    {
+                        depositGrid.Rows[e.RowIndex-1].Cells[DepositColumn.Status].Value = "Pass";
+                        depositGrid.Rows[e.RowIndex].Cells[DepositColumn.Status].Value = "Pass";
+                    }
+
+                }
+                else if (!depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value.ToString().Contains(errorText.TrimEnd(',')))
+                {
+                    var oldDescription = depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value.ToString();
+                    if (oldDescription.Contains("Inactive Company,"))
+                    {
+                        oldDescription = oldDescription.Replace("Inactive Company,", "Inactive Company," + errorText);
+                    }
+                    else
+                    {
+                        oldDescription = errorText + oldDescription;
+                    }
+                    var newDescription = oldDescription.TrimEnd(',');
+
+                    depositGrid.Rows[e.RowIndex-1].Cells[DepositColumn.StatusDescription].Value = newDescription;
+                    depositGrid.Rows[e.RowIndex].Cells[DepositColumn.StatusDescription].Value = newDescription;
+                }
+            }
         }
     }
 }

@@ -16,50 +16,37 @@ namespace DailyCashDeposite.Helper
 
         public static bool ImportExcelFiles(string srcDir, string destDir)
         {
-            if (ConnectionClass.IsConnected)
-            {
-                ConnectionClass.OpenConection();
-                try
-                {
-                    if (Directory.Exists(srcDir) && Directory.Exists(destDir))
-                    {
-                        DirectoryInfo dir = new DirectoryInfo(srcDir);
-                        foreach (FileInfo file in dir.GetFiles())
-                        {
-                            if (file.Extension == ".csv" || file.Extension == ".xlsx")
-                            {
-                                string destFile = Path.Combine(destDir, file.Name);
-                                if (!File.Exists(destFile))
-                                {
-                                    InsertDataTableToDatabase(GenerateDataTable(file.FullName));
-                                    file.MoveTo(destFile);
-                                }
-                            }
 
-                        }
-                        MessageBox.Show("File Moved Successfully");
-                        return true;
-                    }
-                    return false;
-                }
-                catch (Exception message)
-                {
-                    MessageBox.Show("Something Went Wrong");
-                    return false;
-                }
-            }
-            else
+            try
             {
-                MessageBox.Show("First Setup Successfull Connection from the Setup Screen");
-                Setup setup = new Setup();
-                setup.ShowDialog();
-                if (ConnectionClass.IsConnected)
+                if (Directory.Exists(srcDir) && Directory.Exists(destDir))
                 {
-                    setup.Close();
-                    ImportExcelFiles(srcDir, destDir);
+                    DirectoryInfo dir = new DirectoryInfo(srcDir);
+                    foreach (FileInfo file in dir.GetFiles())
+                    {
+                        if (file.Extension == ".csv" || file.Extension == ".xlsx")
+                        {
+                            string destFile = Path.Combine(destDir, file.Name);
+                            if (!File.Exists(destFile))
+                            {
+                                InsertDataTableToDatabase(GenerateDataTable(file.FullName));
+                                file.MoveTo(destFile);
+                            }
+                        }
+
+                    }
+                    MessageBox.Show("File Moved Successfully");
+                    return true;
                 }
                 return false;
             }
+            catch (Exception message)
+            {
+                MessageBox.Show("Something Went Wrong");
+                return false;
+            }
+
+            
         }
 
         public static DataTable GenerateDataTable(string fileName, bool firstRowContainsFieldNames = true)
@@ -126,14 +113,13 @@ namespace DailyCashDeposite.Helper
             //    columnNames += ColumnNames.GetColumnName(typeof(DepositColumn),column.ToString()) + ",";
             //}
             //columnNames += DepositColumn.TransactionTotal + "," + DepositColumn.Status + "," + DepositColumn.StatusDescription + "," + DepositColumn.DateImported + "," + DepositColumn.TimeImported + "," + DepositColumn.WindowsUser + ",";
-            var collumnNames = ColumnNames.GetAllColumnsTogether(typeof(DepositColumn));
             var cellValues = "";
             var entryNo = "";
             for(var rowCount =0;rowCount< table.Rows.Count;)
             {
                 entryNo = table.Rows[rowCount]["Entry"].ToString();
                 var rows = table.Select("Entry = '" + entryNo +"'");
-                InsertRows(rows, collumnNames);
+                InsertDepositRows(rows);
                 rowCount += rows.Count();
             }
 
@@ -151,7 +137,7 @@ namespace DailyCashDeposite.Helper
             //}
         }
 
-        public static void InsertRows(DataRow[] rows,string columnNames)
+        public static void InsertDepositRows(DataRow[] rows)
         {
             var status = "Pass";
             var statusDescription = "";
@@ -201,33 +187,48 @@ namespace DailyCashDeposite.Helper
             }
             statusDescription.TrimEnd(',');
 
-            
-            for(var i =0; i < rows.Length; i++)
+            if (ConnectionClass.IsConnected)
             {
-                var cellValues = "";
-                cellValues += "'" + rows[i][DepositColumn.Journal].ToString() + "',";
-                cellValues += "'" + rows[i][DepositColumn.Entry].ToString() + "',";
-                cellValues += "'" + rows[i][DepositColumn.DepositDate].ToString() + "',";
-                cellValues += "'" + rows[i][DepositColumn.PeriodPostingDate].ToString() + "',";
-                cellValues += "'" + rows[i][DepositColumn.OffSetGLAccount].ToString() + "',";
-                cellValues += "'" + rows[i][DepositColumn.Description].ToString() + "',";
+                ConnectionClass.OpenConection();
+                for (var i = 0; i < rows.Length; i++)
+                {
+                    var cellValues = "";
+                    cellValues += "'" + rows[i][DepositColumn.Journal].ToString() + "',";
+                    cellValues += "'" + rows[i][DepositColumn.Entry].ToString() + "',";
+                    cellValues += "'" + rows[i][DepositColumn.DepositDate].ToString() + "',";
+                    cellValues += "'" + rows[i][DepositColumn.PeriodPostingDate].ToString() + "',";
+                    cellValues += "'" + rows[i][DepositColumn.OffSetGLAccount].ToString() + "',";
+                    cellValues += "'" + rows[i][DepositColumn.Description].ToString() + "',";
 
-                var debit = rows[i][DepositColumn.Debit].ToString() == "" ? 0 : Convert.ToDecimal(rows[i][DepositColumn.Debit].ToString());
-                cellValues += "'" + debit + "',";
+                    var debit = rows[i][DepositColumn.Debit].ToString() == "" ? 0 : Convert.ToDecimal(rows[i][DepositColumn.Debit].ToString());
+                    cellValues += "'" + debit + "',";
 
-                var credit = rows[i][DepositColumn.Credit].ToString() == "" ? 0 : Convert.ToDecimal(rows[i][DepositColumn.Credit].ToString());
-                cellValues += "'" + credit + "',";
+                    var credit = rows[i][DepositColumn.Credit].ToString() == "" ? 0 : Convert.ToDecimal(rows[i][DepositColumn.Credit].ToString());
+                    cellValues += "'" + credit + "',";
 
-                cellValues += "'" + rows[i][DepositColumn.Bun].ToString() + "',";
-                cellValues += "'" + transactionTotal.ToString() + "',";
-                cellValues += "'" + status + "',";
-                cellValues += "'" + statusDescription + "',";
-                cellValues += "'" + DateTime.Now.Date.ToString() + "',";
-                cellValues += "'" + DateTime.Now.TimeOfDay.ToString() + "',";
-                cellValues += "'" + System.Security.Principal.WindowsIdentity.GetCurrent().Name + "'";
+                    cellValues += "'" + rows[i][DepositColumn.Bun].ToString() + "',";
+                    cellValues += "'" + transactionTotal.ToString() + "',";
+                    cellValues += "'" + status + "',";
+                    cellValues += "'" + statusDescription + "',";
+                    cellValues += "'" + DateTime.Now.Date.ToString() + "',";
+                    cellValues += "'" + DateTime.Now.TimeOfDay.ToString() + "',";
+                    cellValues += "'" + System.Security.Principal.WindowsIdentity.GetCurrent().Name + "'";
 
-                ConnectionClass.InsertData(columnNames, cellValues, TableName.Deposit);
+                    ConnectionClass.InsertData(ColumnNames.GetAllColumnsTogether(typeof(DepositColumn)), cellValues, TableName.Deposit);
+                }
+
             }
+            else
+            {
+                MessageBoxHelper.SetupConnenctionMessage();
+                if (ConnectionClass.IsConnected)
+                {
+                    InsertDepositRows(rows);
+                }
+                
+            }
+
+            
         }
     }
 }
