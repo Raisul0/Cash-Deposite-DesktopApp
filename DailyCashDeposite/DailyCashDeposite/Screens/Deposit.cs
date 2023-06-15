@@ -22,8 +22,24 @@ namespace DailyCashDeposite.Screens
         public Deposit()
         {
             InitializeComponent();
-            importedDatePicker.Value = DateTime.Now;
-            bodyContainer.Panel1Collapsed =true;
+            IntilizeFilter();
+        }
+        private void IntilizeFilter()
+        {
+            transactionFromDatePicker.Value = DateTime.Now.AddYears(-1);
+            transactionToDatePicker.Value = DateTime.Now;
+            companyCodeFromTextbox.Clear();
+            companyCodeToTxtbox.Clear();
+            importedFromDatePicker.Value = DateTime.Now;
+            importedToDatePicker.Value = DateTime.Now;
+            bodyContainer.Panel1Collapsed = true;
+            transDateCheckBox.Checked = false;
+            companyCodeCheckBox.Checked = false;
+            importedDateCheckBox.Checked = false;
+            if(depositGrid.Rows.Count > 0 )
+            {
+                GridRowFilter();
+            } 
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -71,6 +87,8 @@ namespace DailyCashDeposite.Screens
 
         private void LoadGrid()
         {
+            IntilizeFilter();
+
             if (ConnectionClass.IsConnected)
             {
                 ConnectionClass.OpenConection();
@@ -80,11 +98,12 @@ namespace DailyCashDeposite.Screens
             else
             {
                 MessageBoxHelper.SetupConnenctionMessage();
+                depositGrid.DataSource = null;
                 if (ConnectionClass.IsConnected)
                 {
                     LoadGrid();
                 }
-                depositGrid.DataSource = null;
+                
             }
         }
 
@@ -121,6 +140,8 @@ namespace DailyCashDeposite.Screens
             depositGrid.Columns[DepositColumn.PeriodPostingDate].SortMode = DataGridViewColumnSortMode.NotSortable;
             depositGrid.Columns[DepositColumn.OffSetGLAccount].SortMode = DataGridViewColumnSortMode.NotSortable;
             depositGrid.Columns[DepositColumn.Description].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.Debit].SortMode = DataGridViewColumnSortMode.NotSortable;
+            depositGrid.Columns[DepositColumn.Credit].SortMode = DataGridViewColumnSortMode.NotSortable;
             depositGrid.Columns[DepositColumn.Bun].SortMode = DataGridViewColumnSortMode.Automatic; // Allow
             depositGrid.Columns[DepositColumn.TransactionTotal].SortMode = DataGridViewColumnSortMode.NotSortable;
             depositGrid.Columns[DepositColumn.Status].SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -159,54 +180,9 @@ namespace DailyCashDeposite.Screens
             LoadGrid();
         }
 
-        private void companyCodeTextbox_TextChanged(object sender, EventArgs e)
-        {
-            var search = companyCodeTextbox.Text;
-            if (!string.IsNullOrEmpty(search))
-            {
-                GridRowFilter(string.Format(DepositColumn.Bun + " = '{0}'", search));
-            }
-            else
-            {
-                GridRowFilter("");
-            }
-            
-        }
-
-        private void GridRowFilter(string rowFilter)
-        {
-            (depositGrid.DataSource as DataTable).DefaultView.RowFilter = rowFilter;
-        }
-
         private void refreshGridButton_Click(object sender, EventArgs e)
         {
             LoadGrid();
-        }
-
-        private void transactionDatePicker_CloseUp(object sender, EventArgs e)
-        {
-            var search = transactionDatePicker.Value.Date.ToString();
-            if (!string.IsNullOrEmpty(search))
-            {
-                GridRowFilter(string.Format(DepositColumn.DepositDate + " = '{0}'", search));
-            }
-            else
-            {
-                GridRowFilter("");
-            }
-        }
-
-        private void importedDatePicker_CloseUp(object sender, EventArgs e)
-        {
-            var search = importedDatePicker.Value.Date.ToString();
-            if (!string.IsNullOrEmpty(search))
-            {
-                GridRowFilter(string.Format(DepositColumn.DateImported + " = '{0}'", search));
-            }
-            else
-            {
-                GridRowFilter("");
-            }
         }
 
         private void insertButton_Click(object sender, EventArgs e)
@@ -232,6 +208,10 @@ namespace DailyCashDeposite.Screens
 
         private void buntxtbox_Leave(object sender, EventArgs e)
         {
+            offset1Combobox.Items.Clear();
+            offset2Combobox.Items.Clear();
+            offset1Combobox.Text = "";
+            offset2Combobox.Text = "";
             var bunValue = buntxtbox.Text?.Trim() ?? "";
             if(ConnectionClass.IsConnected)
             {
@@ -242,11 +222,18 @@ namespace DailyCashDeposite.Screens
                 if(list.Count > 0)
                 {
                     list.ForEach(x => {
-                        offsetCombobox.Items.Add(x);
+                        offset1Combobox.Items.Add(x);
+                        offset2Combobox.Items.Add(x);
                     });
-                    if (offsetCombobox.Items.Count > 0)
+
+                    if (offset1Combobox.Items.Count > 0)
                     {
-                        offsetCombobox.SelectedItem = list[0];
+                        offset1Combobox.SelectedItem = list[0];
+                    }
+
+                    if (offset2Combobox.Items.Count > 0)
+                    {
+                        offset2Combobox.SelectedItem = list[0];
                     }
                 }
                 
@@ -327,24 +314,24 @@ namespace DailyCashDeposite.Screens
             
              
 
-            row1[DepositColumn.Journal] = journalTxtbox.Text;
+            row1[DepositColumn.Journal] = journalTxtbox.Text == "" ? "99" : journalTxtbox.Text;
             row1[DepositColumn.Entry] = EntryNo;
             row1[DepositColumn.DepositDate] = depositdatepicker.Text;
             row1[DepositColumn.PeriodPostingDate] = periodpostingtxtbox.Text;
-            row1[DepositColumn.OffSetGLAccount] = offsetCombobox.Text;
-            row1[DepositColumn.Description] = descriptiontxtbox.Text;
+            row1[DepositColumn.OffSetGLAccount] = offset1Combobox.Text;
+            row1[DepositColumn.Description] = descriptiontxtbox.Text == "" ? "Bank Deposit" : descriptiontxtbox.Text;
             row1[DepositColumn.Debit] = debittxtbox.Text == "" ? 0 : Convert.ToDecimal(debittxtbox.Text);
             row1[DepositColumn.Credit] = 0;
             row1[DepositColumn.Bun] = buntxtbox.Text == "" ? 0 : Convert.ToInt32(buntxtbox.Text);
 
             DataRow row2 = dataTable.NewRow();
 
-            row2[DepositColumn.Journal] = journalTxtbox.Text;
+            row2[DepositColumn.Journal] = journalTxtbox.Text == "" ? "99" : journalTxtbox.Text;
             row2[DepositColumn.Entry] = EntryNo;
             row2[DepositColumn.DepositDate] = depositdatepicker.Text;
             row2[DepositColumn.PeriodPostingDate] = periodpostingtxtbox.Text;
-            row2[DepositColumn.OffSetGLAccount] = offsetCombobox.Text;
-            row2[DepositColumn.Description] = descriptiontxtbox.Text;
+            row2[DepositColumn.OffSetGLAccount] = offset2Combobox.Text;
+            row2[DepositColumn.Description] = descriptiontxtbox.Text == "" ? "Bank Deposit" : descriptiontxtbox.Text;
             row2[DepositColumn.Debit] = 0;
             row2[DepositColumn.Credit] = credittxtbox.Text == "" ? 0 : Convert.ToDecimal(credittxtbox.Text);
             row2[DepositColumn.Bun] = buntxtbox.Text == "" ? 0 : Convert.ToInt32(buntxtbox.Text);
@@ -523,11 +510,136 @@ namespace DailyCashDeposite.Screens
             periodpostingtxtbox.Clear();
             descriptiontxtbox.Text = "Bank Deposit";
             buntxtbox.Clear();
-            offsetCombobox.Text = string.Empty;
+            offset1Combobox.Text = string.Empty;
+            offset2Combobox.Text = string.Empty;
+            offset1Combobox.Items.Clear();
+            offset2Combobox.Items.Clear();
             debittxtbox.Text = "0.00"; ;
             credittxtbox.Text = "0.00";
             transtotaltxtbox.Text = "0.00";
 
+        }
+
+        private void transactionToDatePicker_CloseUp(object sender, EventArgs e)
+        {
+            CheckFilters();
+        }
+
+        private void transactionFromDatePicker_CloseUp(object sender, EventArgs e)
+        {
+            CheckFilters();
+        }
+
+        private void companyCodeTextbox_TextChanged(object sender, EventArgs e)
+        {
+            CheckFilters();
+        }
+
+        private void companyCodeToTxtbox_TextChanged(object sender, EventArgs e)
+        {
+            CheckFilters();
+        }
+
+        private void importedToDatePicker_CloseUp(object sender, EventArgs e)
+        {
+            CheckFilters();
+        }
+
+        private void importedFromDatePicker_CloseUp(object sender, EventArgs e)
+        {
+            CheckFilters();
+        }
+
+        private void CheckFilters()
+        {
+            var transFilter = "";
+            if(transDateCheckBox.Checked)
+            {
+                var fromTrans = transactionFromDatePicker.Value.Date.ToString();
+                var toTrans = transactionToDatePicker.Value.Date.ToString();
+                if (!string.IsNullOrEmpty(fromTrans) && !string.IsNullOrEmpty(toTrans))
+                {
+                    transFilter += string.Format(DepositColumn.DepositDate + " >='{0}' and " + DepositColumn.DepositDate + " <='{1}'", fromTrans, toTrans);
+                }
+            }
+
+            var companyCodefilter = "";
+            if(companyCodeCheckBox.Checked)
+            {
+                var fromCode = companyCodeFromTextbox.Text;
+                var toCode = companyCodeToTxtbox.Text;
+                if (!string.IsNullOrEmpty(fromCode))
+                {
+                    companyCodefilter += string.Format(DepositColumn.Bun + " >='{0}'", Convert.ToInt32(fromCode));
+                }
+
+                if (!string.IsNullOrEmpty(toCode))
+                {
+                    if (companyCodefilter.Length > 0)
+                    {
+                        companyCodefilter += " and ";
+                    }
+                    companyCodefilter += string.Format(DepositColumn.Bun + " <='{0}'", Convert.ToInt32(toCode));
+                }
+            }
+
+            var importedFilter = "";
+            if(importedDateCheckBox.Checked)
+            {
+                var fromimported = importedFromDatePicker.Value.Date.ToString();
+                var toimported = importedToDatePicker.Value.Date.ToString();
+                if (!string.IsNullOrEmpty(fromimported) && !string.IsNullOrEmpty(toimported))
+                {
+                    importedFilter += string.Format(DepositColumn.DateImported + " >='{0}' and " + DepositColumn.DateImported + " <='{1}'", fromimported, toimported);
+                }
+            }
+            
+            GridRowFilter(transFilter, companyCodefilter, importedFilter);
+        }
+
+        private void GridRowFilter(string transDateFilter="", string companyCodeFilter="", string importDateFilter="")
+        {
+            var filter = "";
+
+            if (!string.IsNullOrEmpty(transDateFilter))
+            {
+                filter += transDateFilter;
+            }
+
+            if (!string.IsNullOrEmpty(companyCodeFilter))
+            {
+                if (filter.Length > 0)
+                {
+                    filter += " and ";
+                }
+                filter += companyCodeFilter;
+            }
+
+            if (!string.IsNullOrEmpty(importDateFilter))
+            {
+                if (filter.Length > 0)
+                {
+                    filter += " and ";
+                }
+                filter += importDateFilter;
+            }
+
+            (depositGrid.DataSource as DataTable).DefaultView.RowFilter = filter;
+        }
+
+        private void importedDateCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckFilters();
+        }
+
+        private void companyCodeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckFilters();
+        }
+
+        private void transDateCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckFilters();
         }
     }
 }

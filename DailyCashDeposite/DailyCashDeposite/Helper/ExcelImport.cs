@@ -22,21 +22,30 @@ namespace DailyCashDeposite.Helper
                 if (Directory.Exists(srcDir) && Directory.Exists(destDir))
                 {
                     DirectoryInfo dir = new DirectoryInfo(srcDir);
-                    foreach (FileInfo file in dir.GetFiles())
+                    if(dir.GetFiles().Count() > 0)
                     {
-                        if (file.Extension == ".csv" || file.Extension == ".xlsx")
+                        foreach (FileInfo file in dir.GetFiles())
                         {
-                            string destFile = Path.Combine(destDir, file.Name);
-                            if (!File.Exists(destFile))
+                            if (file.Extension == ".csv" || file.Extension == ".xlsx")
                             {
-                                InsertDataTableToDatabase(GenerateDataTable(file.FullName));
-                                file.MoveTo(destFile);
+                                string destFile = Path.Combine(destDir, file.Name);
+                                if (!File.Exists(destFile))
+                                {
+                                    InsertDataTableToDatabase(GenerateDataTable(file.FullName));
+                                    file.MoveTo(destFile);
+                                }
                             }
-                        }
 
+                        }
+                        MessageBox.Show("File Moved Successfully");
+                        return true;
                     }
-                    MessageBox.Show("File Moved Successfully");
-                    return true;
+                    else
+                    {
+                        MessageBox.Show("No Files Were Found");
+                        return false;
+                    }
+                    
                 }
                 return false;
             }
